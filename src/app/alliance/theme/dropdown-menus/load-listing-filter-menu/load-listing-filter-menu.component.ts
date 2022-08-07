@@ -14,13 +14,13 @@ export class LoadListingFilterMenuComponent implements OnInit {
   @Output() listenResetFilter = new EventEmitter<string>();
   filterFormGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder){}
 
   ngOnInit(): void {
     this.initForm()
   }
 
-  initForm() {
+  initForm(){
     this.filterFormGroup = this.fb.group(
       {
         search: [
@@ -41,7 +41,7 @@ export class LoadListingFilterMenuComponent implements OnInit {
   }
 
   filterSubmit(){
-    if (this.filterFormGroup.valid) {
+    if (this.filterFormGroup.valid){
       let filters:any = {};
       if(this.filterFormGroup.controls.active.value)
         filters['active'] = this.filterFormGroup.controls.active.value

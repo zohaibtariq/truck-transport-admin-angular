@@ -50,7 +50,7 @@ export class DetailComponent implements OnInit {
     private titleCasePipe: TitleCasePipe,
     private userManagementService: UserManagementService,
     private countryService: CountryService,
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -63,7 +63,7 @@ export class DetailComponent implements OnInit {
     this.subscribers()
   }
 
-  onCountryChange(selectedCountryId: any, callback: any = function(){}) {
+  onCountryChange(selectedCountryId: any, callback: any = function(){}){
     let countryId = selectedCountryId.target.value;
     this.countryIsoCode = _.find(this.countries, (country) => {
       return country._id === countryId;
@@ -84,7 +84,7 @@ export class DetailComponent implements OnInit {
       })
   }
 
-  onStateChange(selectedStateId: any, callback: any = function(){}) {
+  onStateChange(selectedStateId: any, callback: any = function(){}){
     // console.log('onStateChange CALLED');
     let stateId = selectedStateId.target.value;
     this.stateIsoCode = _.find(this.states, (state) => {
@@ -105,7 +105,7 @@ export class DetailComponent implements OnInit {
       })
   }
 
-  initForm() {
+  initForm(){
     this.editFormGroup = this.fb.group(
       {
         code: [
@@ -270,7 +270,7 @@ export class DetailComponent implements OnInit {
     this.subscribeUsers()
   }
 
-  subscribeProduct() {
+  subscribeProduct(){
     this.countryService.countries$.subscribe((countries) => {
       // console.log('COUNTRIES POPULATED')
       this.countries = countries;
@@ -283,13 +283,13 @@ export class DetailComponent implements OnInit {
       //   do{
       //     console.log('WORKING DO...')
       //     setTimeout(() => {
-            if(this.countries.length > 0 && product?.location?.country?._id !== undefined) {
-              if(product?.location?.state?._id !== undefined) {
+            if(this.countries.length > 0 && product?.location?.country?._id !== undefined){
+              if(product?.location?.state?._id !== undefined){
                 this.onCountryChange({target:{value: product?.location?.country?._id}}, () => {
                   this.editFormGroup.patchValue({
                     locationState: product?.location?.state?._id,
                   });
-                  if(this.states.length > 0 && product?.location?.city?._id !== undefined) {
+                  if(this.states.length > 0 && product?.location?.city?._id !== undefined){
                     this.onStateChange({target:{value: product?.location?.state?._id}}, () => {
                       this.editFormGroup.patchValue({
                         locationCity: product?.location?.city?._id,
@@ -371,13 +371,13 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  update() {
+  update(){
     let allContactPersons = [...this.product.contactPersons];
     if(allContactPersons.length > 0)
       allContactPersons = allContactPersons.map(({_id, ...rest}) => {
         return rest;
       });
-    if (this.createContactFormGroup.valid) {
+    if (this.createContactFormGroup.valid){
       allContactPersons.push({
         name: this.createContactFormGroup.controls.contactPerson.value,
         type: this.createContactFormGroup.controls.contactType.value,
@@ -387,7 +387,7 @@ export class DetailComponent implements OnInit {
       });
       this.createContactFormGroup.reset();
     }
-    if (this.editFormGroup.valid) {
+    if (this.editFormGroup.valid){
       let product = {
         active: this.editFormGroup.controls.active.value,
         isBillTo: this.editFormGroup.controls.isBillTo.value,
@@ -440,13 +440,13 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.routeSub.unsubscribe();
     this.productSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
   }
 
-  open(content: any) {
+  open(content: any){
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {
     });
@@ -468,7 +468,7 @@ export class DetailComponent implements OnInit {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.product.contactPersons.splice(this.product.contactPersons.findIndex(function(i: any){
           return i._id === contactPerson._id;
         }), 1);
@@ -479,7 +479,7 @@ export class DetailComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your Contact person ' + contactPersonName + ' is safe :)',
@@ -501,7 +501,7 @@ export class DetailComponent implements OnInit {
   uploadListener($event: any): void {
     let text = [];
     let files = $event.srcElement.files;
-    if (this.isValidCSVFile(files[0])) {
+    if (this.isValidCSVFile(files[0])){
       let input = $event.target;
       let reader = new FileReader();
       reader.readAsText(input.files[0]);
@@ -512,7 +512,7 @@ export class DetailComponent implements OnInit {
         this.getDataRecordsArrayFromCSVFile(TypeCSVModelsArray, headersRow.length);
         this.update();
       };
-      reader.onerror = function () {
+      reader.onerror = function (){
       };
     } else {
       alert("Please import valid profile .csv file.");
@@ -520,10 +520,10 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  getDataRecordsArrayFromCSVFile(TypeCSVModelsArray: any, headerLength: any) {
-    for (let i = 1; i < TypeCSVModelsArray.length; i++) {
+  getDataRecordsArrayFromCSVFile(TypeCSVModelsArray: any, headerLength: any){
+    for (let i = 1; i < TypeCSVModelsArray.length; i++){
       let currentRecord = (<string>TypeCSVModelsArray[i]).split(',');
-      if (currentRecord.length == headerLength) {
+      if (currentRecord.length == headerLength){
         let contactPersonCSVRecord: ContactPersonCSVModel = new ContactPersonCSVModel();
         contactPersonCSVRecord.name = currentRecord[0].trim().replace(/["']/g, "");
         contactPersonCSVRecord.type = currentRecord[1].trim().replace(/["']/g, "");
@@ -535,20 +535,20 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  isValidCSVFile(file: any) {
+  isValidCSVFile(file: any){
     return file.name.endsWith(".csv");
   }
 
-  getHeaderArray(TypeCSVModelsArr: any) {
+  getHeaderArray(TypeCSVModelsArr: any){
     let headers = (<string>TypeCSVModelsArr[0]).split(',');
     let headerArray = [];
-    for (let j = 0; j < headers.length; j++) {
+    for (let j = 0; j < headers.length; j++){
       headerArray.push(headers[j]);
     }
     return headerArray;
   }
 
-  fileReset() {
+  fileReset(){
     this.csvReader.nativeElement.value = "";
     this.importContactPersonError = '';
     this.importContactPersonSuccess = '';

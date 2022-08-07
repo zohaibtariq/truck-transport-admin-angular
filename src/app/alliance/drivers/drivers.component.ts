@@ -30,7 +30,7 @@ export class DriversComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private modalService: NgbModal,
     private fb: FormBuilder
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -43,11 +43,11 @@ export class DriversComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.driverSubscription.unsubscribe();
   }
 
-  initForm() {
+  initForm(){
     this.createDriverFormGroup = this.fb.group(
       {
         code: [
@@ -131,8 +131,8 @@ export class DriversComponent implements OnInit {
     );
   }
 
-  submit() {
-    if (this.createDriverFormGroup.valid) {
+  submit(){
+    if (this.createDriverFormGroup.valid){
       let driver = {
         code: this.createDriverFormGroup.controls.code.value,
         active: this.createDriverFormGroup.controls.active.value,
@@ -160,7 +160,7 @@ export class DriversComponent implements OnInit {
     }
   }
 
-  subscribeDriver() {
+  subscribeDriver(){
     this.driverSubscription = this.driversService.drivers$.subscribe((drivers: any) => {
       this.drivers =  drivers.results
       this.page = drivers.page;
@@ -179,13 +179,13 @@ export class DriversComponent implements OnInit {
     this.driversService.getAllDrivers(pageNum);
   }
 
-  open(content: any) {
+  open(content: any){
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {
     });
   }
 
-  filterSubmit(queryString: any) {
+  filterSubmit(queryString: any){
     // console.log('Driver : filterSubmit');
     // console.log(queryString);
     queryString = queryString.replaceAll('location_', '');
@@ -193,7 +193,7 @@ export class DriversComponent implements OnInit {
     this.driversService.getAllDrivers(1, queryString);
   }
 
-  resetFilter() {
+  resetFilter(){
     this.driversService.getAllDrivers(1, '');
   }
 

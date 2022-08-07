@@ -19,7 +19,7 @@ export class TypeImportComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private router: Router,
     private route: ActivatedRoute,
-  ) { }
+  ){ }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
@@ -38,7 +38,7 @@ export class TypeImportComponent implements OnInit {
   uploadListener($event: any): void {
     let text = [];
     let files = $event.srcElement.files;
-    if (this.isValidCSVFile(files[0])) {
+    if (this.isValidCSVFile(files[0])){
       let input = $event.target;
       let reader = new FileReader();
       reader.readAsText(input.files[0]);
@@ -49,7 +49,7 @@ export class TypeImportComponent implements OnInit {
         this.records = this.getDataRecordsArrayFromCSVFile(TypeCSVModelsArray, headersRow.length);
         this.ref.detectChanges();
       };
-      reader.onerror = function () {
+      reader.onerror = function (){
       };
     } else {
       alert("Please import valid profile .csv file.");
@@ -57,12 +57,12 @@ export class TypeImportComponent implements OnInit {
     }
   }
 
-  getDataRecordsArrayFromCSVFile(TypeCSVModelsArray: any, headerLength: any) {
+  getDataRecordsArrayFromCSVFile(TypeCSVModelsArray: any, headerLength: any){
     let csvArr = [];
     let userEmails = [];
-    for (let i = 1; i < TypeCSVModelsArray.length; i++) {
+    for (let i = 1; i < TypeCSVModelsArray.length; i++){
       let currentRecord = (<string>TypeCSVModelsArray[i]).split(',');
-      if (currentRecord.length == headerLength) {
+      if (currentRecord.length == headerLength){
         let typeCSVRecord: TypeCSVRecord = new TypeCSVRecord();
         typeCSVRecord.isCustomer = currentRecord[0].trim().replace(/["']/g, "") === 'true' ? true : false;
         typeCSVRecord.isBillTo = currentRecord[1].trim().replace(/["']/g, "") === 'true' ? true : false;
@@ -100,20 +100,20 @@ export class TypeImportComponent implements OnInit {
     return csvArr;
   }
 
-  isValidCSVFile(file: any) {
+  isValidCSVFile(file: any){
     return file.name.endsWith(".csv");
   }
 
-  getHeaderArray(TypeCSVModelsArr: any) {
+  getHeaderArray(TypeCSVModelsArr: any){
     let headers = (<string>TypeCSVModelsArr[0]).split(',');
     let headerArray = [];
-    for (let j = 0; j < headers.length; j++) {
+    for (let j = 0; j < headers.length; j++){
       headerArray.push(headers[j]);
     }
     return headerArray;
   }
 
-  fileReset() {
+  fileReset(){
     this.csvReader.nativeElement.value = "";
     this.records = [];
     this.uniqueUsersCount = 0;

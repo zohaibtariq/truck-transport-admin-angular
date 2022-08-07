@@ -10,7 +10,7 @@ export class CancelledComponent implements OnInit {
   heading = 'Cancelled';
   status = 'cancelled';
 
-  constructor() { }
+  constructor(){ }
 
   ngOnInit(): void {
   }

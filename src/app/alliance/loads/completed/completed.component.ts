@@ -10,7 +10,7 @@ export class CompletedComponent implements OnInit {
   heading = 'Completed';
   status = 'completed';
 
-  constructor() { }
+  constructor(){ }
 
   ngOnInit(): void {
   }

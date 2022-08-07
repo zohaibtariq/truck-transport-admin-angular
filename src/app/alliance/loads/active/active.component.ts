@@ -10,7 +10,7 @@ export class ActiveComponent implements OnInit {
   heading = 'Active';
   status = 'active';
 
-  constructor() { }
+  constructor(){ }
 
   ngOnInit(): void {
   }

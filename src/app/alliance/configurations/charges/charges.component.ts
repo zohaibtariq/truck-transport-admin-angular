@@ -35,7 +35,7 @@ export class ChargesComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private titleCasePipe: TitleCasePipe,
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -48,11 +48,11 @@ export class ChargesComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.chargeSubscription.unsubscribe();
   }
 
-  initForm() {
+  initForm(){
     this.createChargeFormGroup = this.fb.group(
       {
         name: ['', Validators.compose([Validators.required])],
@@ -68,9 +68,9 @@ export class ChargesComponent implements OnInit {
     );
   }
 
-  submit() {
+  submit(){
     this.createChargeFormError = ''
-    if (this.createChargeFormGroup.valid) {
+    if (this.createChargeFormGroup.valid){
       let charge = {
         name: this.createChargeFormGroup.controls.name.value,
         // active: this.createChargeFormGroup.controls.active.value === true,
@@ -95,9 +95,9 @@ export class ChargesComponent implements OnInit {
     }
   }
 
-  update() {
+  update(){
     this.editChargeFormError = ''
-    if (this.editChargeFormGroup.valid) {
+    if (this.editChargeFormGroup.valid){
       let charge = {
         name: this.editChargeFormGroup.controls.name.value,
         // active: this.editChargeFormGroup.controls.active.value === true,
@@ -126,7 +126,7 @@ export class ChargesComponent implements OnInit {
       });
   }
 
-  subscribeCharge() {
+  subscribeCharge(){
     this.chargeSubscription = this.chargesService.charges$.subscribe((charges: any) => {
       // console.log('charges')
       // console.log(charges)
@@ -147,7 +147,7 @@ export class ChargesComponent implements OnInit {
     this.chargesService.getAllCharges(pageNum, 'active=true&sortBy=createdAtDateTime:desc');
   }
 
-  open(content: any) {
+  open(content: any){
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {
     });
@@ -166,7 +166,7 @@ export class ChargesComponent implements OnInit {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.callUpdateService(charge.id, {active: false});
         Swal.fire({
           title: 'Deleted!',
@@ -174,7 +174,7 @@ export class ChargesComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your charge ' + fullChargeName + ' is safe :)',

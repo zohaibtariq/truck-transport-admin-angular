@@ -16,13 +16,13 @@ export class UserFilterMenuComponent implements OnInit {
   @Output() listenResetFilter = new EventEmitter<string>();
   filterFormGroup: FormGroup;
 
-  constructor(private userManagementService: UserManagementService, private fb: FormBuilder) {}
+  constructor(private userManagementService: UserManagementService, private fb: FormBuilder){}
 
   ngOnInit(): void {
     this.initForm()
   }
 
-  initForm() {
+  initForm(){
     this.filterFormGroup = this.fb.group(
       {
         name: ['', Validators.compose([])],
@@ -34,8 +34,8 @@ export class UserFilterMenuComponent implements OnInit {
     );
   }
 
-  filterSubmit() {
-    if (this.filterFormGroup.valid) {
+  filterSubmit(){
+    if (this.filterFormGroup.valid){
       let user:any = {};
       if(this.filterFormGroup.controls.name.value){
         user['name'] = this.filterFormGroup.controls.name.value

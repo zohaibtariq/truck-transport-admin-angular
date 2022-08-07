@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConsigneesComponent implements OnInit {
 
-  constructor() { }
+  constructor(){ }
 
   heading = 'Consignees';
   pageSlug = 'consignees';

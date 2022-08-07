@@ -71,7 +71,7 @@ export class DriverDetailComponent implements OnInit {
     private titleCasePipe: TitleCasePipe,
     private countryService: CountryService,
     // private date: NgbDateStruct
-  ) {
+  ){
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
@@ -114,13 +114,13 @@ export class DriverDetailComponent implements OnInit {
     this.driverSubscription = this.driversService.driver$.subscribe((driver: any) => {
       // console.log('DRIVER');
       // console.log(driver);
-      if(this.countries.length > 0 && driver?.country?._id !== undefined) {
-        if(driver?.state?._id !== undefined) {
+      if(this.countries.length > 0 && driver?.country?._id !== undefined){
+        if(driver?.state?._id !== undefined){
           this.onCountryChange({target:{value: driver?.country?._id}}, () => {
             this.editDriverFormGroup.patchValue({
               state: driver?.state?._id,
             });
-            if(this.states.length > 0 && driver?.city?._id !== undefined) {
+            if(this.states.length > 0 && driver?.city?._id !== undefined){
               this.onStateChange({target:{value: driver?.state?._id}}, () => {
                 this.editDriverFormGroup.patchValue({
                   city: driver?.city?._id,
@@ -211,7 +211,7 @@ export class DriverDetailComponent implements OnInit {
     }
   }
 
-  initForm() {
+  initForm(){
     this.editDriverFormGroup = this.fb.group(
       {
         file: [
@@ -386,8 +386,8 @@ export class DriverDetailComponent implements OnInit {
     );
   }
 
-  onFileChange(event:any) {
-    if (event.target.files.length > 0) {
+  onFileChange(event:any){
+    if (event.target.files.length > 0){
       this.editDriverFormGroup.patchValue({
         fileSource: event.target.files[0]
       });
@@ -479,12 +479,12 @@ export class DriverDetailComponent implements OnInit {
   }
 
   fillCertificationEditForm(certificationCurrentObject: any){
-    if(certificationCurrentObject?.state?._id !== undefined) {
+    if(certificationCurrentObject?.state?._id !== undefined){
       this.onCertCountryChange({target:{value: certificationCurrentObject?.country?._id}}, () => {
         this.editCertificationFormGroup.patchValue({
           state: certificationCurrentObject?.state?._id,
         });
-        if(this.states.length > 0 && certificationCurrentObject?.city?._id !== undefined) {
+        if(this.states.length > 0 && certificationCurrentObject?.city?._id !== undefined){
           this.onCertStateChange({target:{value: certificationCurrentObject?.state?._id}}, () => {
             this.editCertificationFormGroup.patchValue({
               city: certificationCurrentObject?.city?._id,
@@ -524,7 +524,7 @@ export class DriverDetailComponent implements OnInit {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.driver.certifications.splice(this.driver.certifications.findIndex(function(i: any){
           return i._id === certificationCurrentObject._id;
         }), 1);
@@ -535,7 +535,7 @@ export class DriverDetailComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your Certification ' + certificationName + ' is safe :)',
@@ -546,7 +546,7 @@ export class DriverDetailComponent implements OnInit {
     })
   }
 
-  update() {
+  update(){
     let allCertifications = [...this.driver.certifications];
     if(allCertifications.length > 0)
       allCertifications = allCertifications.map(({_id, ...rest}) => {
@@ -563,7 +563,7 @@ export class DriverDetailComponent implements OnInit {
         // console.log({...rest})
         return rest;
       });
-    if (this.createCertificationFormGroup.valid) {
+    if (this.createCertificationFormGroup.valid){
       allCertifications.push({
         drivingSchool: this.createCertificationFormGroup.controls.drivingSchool.value,
         country: this.createCertificationFormGroup.controls.country.value,
@@ -580,7 +580,7 @@ export class DriverDetailComponent implements OnInit {
       });
       this.createCertificationFormGroup.reset();
     }
-    if (this.editDriverFormGroup.valid) {
+    if (this.editDriverFormGroup.valid){
       let driver: any = {
         // code: this.editDriverFormGroup.controls.code.value,
         ratePerMile: this.editDriverFormGroup.controls.ratePerMile.value,
@@ -624,7 +624,7 @@ export class DriverDetailComponent implements OnInit {
         this.editDriverFormGroup.controls.file.value !== null
         &&
         this.editDriverFormGroup.controls.fileSource.value !== null
-      ) {
+      ){
         this.uploadValidDriverImage();
       }
       // console.log('DRIVER OBJ TO UPDATE IS');
@@ -638,13 +638,13 @@ export class DriverDetailComponent implements OnInit {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.routeSub.unsubscribe();
     this.driverSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
   }
 
-  open(content: any) {
+  open(content: any){
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {
     });
@@ -675,7 +675,7 @@ export class DriverDetailComponent implements OnInit {
   //   console.log(e)
   // }
 
-  onCountryChange(selectedCountryId: any, callback: any = function(){}) {
+  onCountryChange(selectedCountryId: any, callback: any = function(){}){
     let countryId = selectedCountryId.target.value;
     this.countryIsoCode = _.find(this.countries, (country) => {
       return country._id === countryId;
@@ -696,7 +696,7 @@ export class DriverDetailComponent implements OnInit {
       })
   }
 
-  onStateChange(selectedStateId: any, callback: any = function(){}) {
+  onStateChange(selectedStateId: any, callback: any = function(){}){
     // console.log('onStateChange CALLED');
     let stateId = selectedStateId.target.value;
     this.stateIsoCode = _.find(this.states, (state) => {
@@ -717,7 +717,7 @@ export class DriverDetailComponent implements OnInit {
       })
   }
 
-  onCertCountryChange(selectedCountryId: any, callback: any = function(){}) {
+  onCertCountryChange(selectedCountryId: any, callback: any = function(){}){
     let countryId = selectedCountryId.target.value;
     this.certCountryIsoCode = _.find(this.certCountries, (country) => {
       return country._id === countryId;
@@ -738,7 +738,7 @@ export class DriverDetailComponent implements OnInit {
       })
   }
 
-  onCertStateChange(selectedStateId: any, callback: any = function(){}) {
+  onCertStateChange(selectedStateId: any, callback: any = function(){}){
     // console.log('onCertStateChange CALLED');
     let stateId = selectedStateId.target.value;
     this.certStateIsoCode = _.find(this.certStates, (state) => {

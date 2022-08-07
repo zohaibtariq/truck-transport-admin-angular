@@ -305,8 +305,40 @@ ul.driver-assigned-status{
   color: navy;
 }
 .btn.btn-primary.alliance-yellow-button {
-  background-color: #ffb041;
+  background-color: #ffb041 !important;
 }
 .btn.btn-primary.alliance-yellow-button:hover:not(.btn-active){
   background-color: #c97a06 !important;
+}
+.interested-drivers-wrap{
+  padding: 0px;
+  .col,
+  .row{
+    margin: 0px;
+    padding: 0px;
+  }
+  .col.even-row {
+    border-bottom: 2px solid #efefef;
+  }
+  .mb-3.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 !important;
+    label.interested-drivers-label {
+      width: 70%;
+      display: flex;
+      span.driver-name {
+        width: 50%;
+      }
+      span.driver-rate-per-mile {
+        width: 50%;
+      }
+    }
+    button.btn.btn-primary.alliance-yellow-button.interested-drivers-btn {
+      width: auto;
+      padding: 5px 30px !important;
+    }
+  }
 }

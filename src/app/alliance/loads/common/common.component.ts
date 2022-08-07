@@ -46,7 +46,7 @@ export class CommonComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private titleCasePipe: TitleCasePipe,
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -61,13 +61,13 @@ export class CommonComponent {
     this.pageSlug = this.heading.toLowerCase().replace(' ', '-')
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.loadSubscription.unsubscribe();
     this.customersSubscription.unsubscribe();
     this.originsSubscription.unsubscribe();
   }
 
-  initForm() {
+  initForm(){
     this.createFormGroup = this.fb.group(
       {
         customer: ['',Validators.compose([Validators.required])],
@@ -81,8 +81,8 @@ export class CommonComponent {
     );
   }
 
-  submit() {
-    if (this.createFormGroup.valid) {
+  submit(){
+    if (this.createFormGroup.valid){
       let load = {
         customer: this.createFormGroup.controls.customer.value,
         proCode: this.createFormGroup.controls.proCode.value,
@@ -109,7 +109,7 @@ export class CommonComponent {
     this.subscribeOriginShippers()
   }
 
-  subscribeLoad() {
+  subscribeLoad(){
     this.loadSubscription = this.loadsService.loads$.subscribe((loads: any) => {
       if(loads?.results){
         this.loads =  loads.results
@@ -186,13 +186,13 @@ export class CommonComponent {
     this.customerDestinationAddress = this.loadsService.beautifyAddress(destinationAddress);
   }
 
-  paginationClicked(pageNum: any) {
+  paginationClicked(pageNum: any){
     // console.log('clicked page num is : ' + pageNum);
     this.page = pageNum;
     this.loadsService.getAllLoads(this.status, this.page);
   }
 
-  open(content: any) {
+  open(content: any){
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {});
   }
@@ -201,7 +201,7 @@ export class CommonComponent {
     this.loadsService.exportProfiles(this.status);
   }
 
-  filterSubmit(filters: any) {
+  filterSubmit(filters: any){
     // console.log('filterSubmit');
     // console.log(filters);
     let loadFilters:any = {};
@@ -211,7 +211,7 @@ export class CommonComponent {
     this.loadsService.getAllLoads(this.status, 1, queryString);
   }
 
-  resetFilter() {
+  resetFilter(){
     this.loadsService.getAllLoads(this.status, 1, '');
   }
 
@@ -228,7 +228,7 @@ export class CommonComponent {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.loadsService.deleteLoad(profile.id).pipe(shareReplay(), first())
           .subscribe((profile: any) => {
             this.loadsService.getAllLoads(this.status, 1, '');
@@ -239,7 +239,7 @@ export class CommonComponent {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your profile ' + profileLocationName + ' is safe :)',

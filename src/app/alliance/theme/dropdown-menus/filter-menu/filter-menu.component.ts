@@ -18,13 +18,13 @@ export class FilterMenuComponent implements OnInit {
   @Output() listenResetFilter = new EventEmitter<string>();
   filterFormGroup: FormGroup;
 
-  constructor(private typesService: TypesService, private fb: FormBuilder) {}
+  constructor(private typesService: TypesService, private fb: FormBuilder){}
 
   ngOnInit(): void {
     this.initForm()
   }
 
-  initForm() {
+  initForm(){
     this.filterFormGroup = this.fb.group(
       {
         search: [
@@ -47,8 +47,8 @@ export class FilterMenuComponent implements OnInit {
     );
   }
 
-  filterSubmit() {
-    if (this.filterFormGroup.valid) {
+  filterSubmit(){
+    if (this.filterFormGroup.valid){
       let filters:any = {};
       // let product:any = {};
       if(this.filterFormGroup.controls.active.value)
@@ -91,7 +91,7 @@ export class FilterMenuComponent implements OnInit {
     this.listenResetFilter.emit();
   }
 
-  // filterProducts() {
+  // filterProducts(){
     // this.productSubscription = this.typesService.profiles$.subscribe((products: any) => {
     // });
     // this.typesService.getAllProfiles(this.type, 1);

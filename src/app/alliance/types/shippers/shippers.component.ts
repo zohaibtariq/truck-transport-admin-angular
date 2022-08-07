@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShippersComponent implements OnInit {
 
-  constructor() { }
+  constructor(){ }
 
   heading = 'Shippers';
   type = {'isShipper': true};

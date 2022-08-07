@@ -18,7 +18,7 @@ export class DriverImportComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private router: Router,
     private route: ActivatedRoute,
-  ) { }
+  ){ }
 
   ngOnInit(): void {
   }
@@ -34,7 +34,7 @@ export class DriverImportComponent implements OnInit {
     // console.log($event)
     let text = [];
     let files = $event.srcElement.files;
-    if (this.isValidCSVFile(files[0])) {
+    if (this.isValidCSVFile(files[0])){
       let input = $event.target;
       let reader = new FileReader();
       reader.readAsText(input.files[0]);
@@ -51,7 +51,7 @@ export class DriverImportComponent implements OnInit {
         // console.log(this.records)
         this.ref.detectChanges();
       };
-      reader.onerror = function () {
+      reader.onerror = function (){
         console.error('error is occurred while reading file!');
       };
     } else {
@@ -60,12 +60,12 @@ export class DriverImportComponent implements OnInit {
     }
   }
 
-  getDataRecordsArrayFromCSVFile(TypeCSVModelsArray: any, headerLength: any) {
+  getDataRecordsArrayFromCSVFile(TypeCSVModelsArray: any, headerLength: any){
     let csvArr = [];
     let userEmails = [];
-    for (let i = 1; i < TypeCSVModelsArray.length; i++) {
+    for (let i = 1; i < TypeCSVModelsArray.length; i++){
       let currentRecord = (<string>TypeCSVModelsArray[i]).split(',');
-      if (currentRecord.length == headerLength) {
+      if (currentRecord.length == headerLength){
         let driverCSVRecord: DriverCSVRecord = new DriverCSVRecord();
         driverCSVRecord.email = currentRecord[0].trim().replace(/["']/g, "");
         driverCSVRecord.code = currentRecord[1].trim().replace(/["']/g, "");
@@ -91,20 +91,20 @@ export class DriverImportComponent implements OnInit {
     return csvArr;
   }
 
-  isValidCSVFile(file: any) {
+  isValidCSVFile(file: any){
     return file.name.endsWith(".csv");
   }
 
-  getHeaderArray(TypeCSVModelsArr: any) {
+  getHeaderArray(TypeCSVModelsArr: any){
     let headers = (<string>TypeCSVModelsArr[0]).split(',');
     let headerArray = [];
-    for (let j = 0; j < headers.length; j++) {
+    for (let j = 0; j < headers.length; j++){
       headerArray.push(headers[j]);
     }
     return headerArray;
   }
 
-  fileReset() {
+  fileReset(){
     this.csvReader.nativeElement.value = "";
     this.records = [];
     this.uniqueUsersCount = 0;

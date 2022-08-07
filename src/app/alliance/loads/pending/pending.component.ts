@@ -10,7 +10,7 @@ export class PendingComponent implements OnInit {
   heading = 'Pending';
   status = 'pending';
 
-  constructor() { }
+  constructor(){ }
 
   ngOnInit(): void {
   }

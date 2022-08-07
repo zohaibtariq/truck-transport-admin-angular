@@ -16,7 +16,7 @@ export class LoadsService {
   loads$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   load$: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient){ }
 
   getLoad(id:any): Subscription {
     return this.http.get<{}>(API_USERS_URL+'loads/'+id)
@@ -88,22 +88,22 @@ export class LoadsService {
       let address = Obj?.location?.address1.toLowerCase()
       beautifiedAddress += this.capitalize(address)
     }
-    if(beautifiedAddress !== '' && Obj?.location?.state && Obj?.location?.state?.name) {
+    if(beautifiedAddress !== '' && Obj?.location?.state && Obj?.location?.state?.name){
       let state = Obj?.location?.state?.name.toLowerCase()
       beautifiedAddress += ', ' + state.toUpperCase()
     }
-    if(beautifiedAddress !== '' && Obj?.location?.city && Obj?.location?.city?.name) {
+    if(beautifiedAddress !== '' && Obj?.location?.city && Obj?.location?.city?.name){
       let city = Obj?.location?.city?.name.toLowerCase()
       beautifiedAddress += ', ' + this.ucfirst(city)
     }
-    if(beautifiedAddress !== '' && Obj?.location?.zip) {
+    if(beautifiedAddress !== '' && Obj?.location?.zip){
       let zip = Obj?.location?.zip.toLowerCase()
       beautifiedAddress += ', ' + zip
     }
     return beautifiedAddress;
   }
 
-  capitalize(sentence = '') {
+  capitalize(sentence = ''){
     const words = sentence.split(" ");
     return words.map((word) => {
       return word[0].toUpperCase() + word.substring(1);

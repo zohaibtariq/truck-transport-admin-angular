@@ -10,7 +10,7 @@ export class EnrouteComponent implements OnInit {
   heading = 'Enroute';
   status = 'enroute';
 
-  constructor() { }
+  constructor(){ }
 
   ngOnInit(): void {
   }

@@ -4,7 +4,7 @@
     <h1 class="card-title align-items-start flex-column">
       <span class="card-label fw-bolder fs-3 mb-1">Load Detail</span>
     </h1>
-    <pre>{{load | json}}</pre>
+    <!--<pre>{{load | json}}</pre>-->
     <!--<pre>{{user | json}}</pre>
     <pre>{{driver | json}}</pre>-->
   </div>
@@ -35,8 +35,9 @@
           class="btn btn-primary alliance-yellow-button"
           type="button"
           data-kt-element="send"
+          (click)="openInterestedDrivers(invitedDriverModal)"
         >
-          Driver Interests {{load?.driverInterests?.length}}
+          Interested Drivers ({{load?.driverInterests?.length}})
         </button>
         &nbsp;&nbsp;&nbsp;
 
@@ -657,16 +658,29 @@
     (ngSubmit)="update({inviteDriver: true})"
   >
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-invite-driver-title">Invite Driver</h4>
+      <h4 class="modal-title" id="modal-invite-driver-title">{{inviteDriverPopupHeading}}</h4>
       <i class="bi bi-x fs-5 close" aria-label="Close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></i>
     </div>
     <div class="modal-body">
-      <div class="container">
+      <div class="container interested-drivers-wrap" *ngIf="!isInterestedDriverInvited && !isDriverInvite">
+        <div class="row" *ngFor="let interestedDrive of load?.driverInterests;let indexOfElement=index;">
+          <div class="col" [ngClass]="((indexOfElement % 2 === 0) ? ' even-row' : '')">
+            <div class="mb-3 row">
+              <label for="invitedDriver" class="col-sm-12 col-form-label interested-drivers-label">
+                <span class="driver-name text-capitalize"><b>Driver Name: </b> {{interestedDrive?.id?.first_name}} {{interestedDrive?.id?.last_name}}</span>
+                <span class="driver-rate-per-mile text-capitalize"><b>Rate Per Mile: </b> {{interestedDrive?.id?.ratePerMile.toFixed(2)}}</span>
+              </label>
+              <button class="btn btn-primary alliance-yellow-button interested-drivers-btn" type="button" (click)="interestedDriverInvited(interestedDrive)">Invite</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container" *ngIf="isDriverInvite || isInterestedDriverInvited">
         <div class="row">
           <div class="col">
             <div class="mb-3 row">
               <label for="invitedDriver" class="col-sm-12 col-form-label">Invite Driver</label>
-              <select (change)="changeDriverInvite($event)" formControlName="invitedDriver" id="invitedDriver" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              <select (change)="changeDriverInvite($event)" formControlName="invitedDriver" id="invitedDriver" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" [disabled]="isInterestedDriverInvited">
                 <option selected value="">Select Driver</option>
                 <option *ngFor="let driver of drivers" value="{{driver?.id}}" class="text-capitalize">{{driver?.first_name}} {{driver?.last_name}}</option>
               </select>

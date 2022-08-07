@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrokersComponent implements OnInit {
 
-  constructor() { }
+  constructor(){ }
 
   heading = 'Brokers';
   type = {'isBroker': true};

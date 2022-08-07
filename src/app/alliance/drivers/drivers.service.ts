@@ -18,7 +18,7 @@ export class DriversService {
   activeDriversToInvite$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   driver$: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient){ }
 
   getDriver(id:any): Subscription {
     return this.http.get<{}>(API_USERS_URL+'drivers/'+id)

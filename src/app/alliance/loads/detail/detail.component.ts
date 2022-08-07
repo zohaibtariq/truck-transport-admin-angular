@@ -59,6 +59,9 @@ export class DetailComponent implements OnInit {
   private customersSubscription: Subscription;
   private originsSubscription: Subscription;
   private loadSubscription: Subscription;
+  inviteDriverPopupHeading: String;
+  isDriverInvite: boolean = false;
+  isInterestedDriverInvited: boolean = false;
   maxLimit = 1000; // TODO:: pick it from environment
 
   constructor(
@@ -72,7 +75,7 @@ export class DetailComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private modalService: NgbModal,
     private fb: FormBuilder,
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -212,7 +215,7 @@ export class DetailComponent implements OnInit {
     this.typeService.getShipperProfiles();
   }
 
-  initForm() {
+  initForm(){
     this.editLoadFormGroup = this.fb.group(
       {
         customer: ['',Validators.compose([Validators.required])],
@@ -311,7 +314,7 @@ export class DetailComponent implements OnInit {
     );
   }
 
-  update(options: any) {
+  update(options: any){
     let load: any = {};
     let allGoods = [...this.load?.goods];
     if(allGoods.length > 0){
@@ -333,7 +336,7 @@ export class DetailComponent implements OnInit {
         return rest;
       });
     }
-    if (options?.editLoad && this.editLoadFormGroup.valid) {
+    if (options?.editLoad && this.editLoadFormGroup.valid){
       // console.log('editLoadFormGroup VALID')
       load = {
         customer: this.editLoadFormGroup.controls.customer.value,
@@ -347,7 +350,7 @@ export class DetailComponent implements OnInit {
         goods: [...allGoods]
       };
     }
-    if (options?.inviteDriver && this.inviteDriverFormGroup.valid) {
+    if (options?.inviteDriver && this.inviteDriverFormGroup.valid){
       // console.log('inviteDriverFormGroup VALID')
       load = {
         "invitationSentToDriver": true,
@@ -381,7 +384,7 @@ export class DetailComponent implements OnInit {
           });
       }
     }
-    if (options?.createGoods && this.createGoodsFormGroup.valid) {
+    if (options?.createGoods && this.createGoodsFormGroup.valid){
       // console.log('createGoodsFormGroup VALID')
       allGoods.push({
         make: this.createGoodsFormGroup.controls.make.value,
@@ -405,7 +408,7 @@ export class DetailComponent implements OnInit {
         }
       }
     }
-    if (options?.updateGoods || this.editGoodsFormGroup.valid) {
+    if (options?.updateGoods || this.editGoodsFormGroup.valid){
       // console.log('editGoodsFormGroup VALID')
       if(allGoods.length > 0){
         load = {
@@ -413,13 +416,13 @@ export class DetailComponent implements OnInit {
         }
       }
     }
-    if (options?.deleteGoods) {
+    if (options?.deleteGoods){
       // console.log('editGoodsFormGroup VALID')
       load = {
         goods: [...allGoods]
       }
     }
-    if (options?.createCharges && this.createChargesFormGroup.valid) {
+    if (options?.createCharges && this.createChargesFormGroup.valid){
       // console.log('createChargesFormGroup VALID')
       allCharges.push({
         type: this.createChargesFormGroup.controls.type.value,
@@ -435,7 +438,7 @@ export class DetailComponent implements OnInit {
         }
       }
     }
-    if (options?.updateCharges && this.editChargesFormGroup.valid) {
+    if (options?.updateCharges && this.editChargesFormGroup.valid){
       // console.log('editChargesFormGroup VALID')
       if(allCharges.length > 0){
         load = {
@@ -443,13 +446,13 @@ export class DetailComponent implements OnInit {
         }
       }
     }
-    if (options?.deleteCharges) {
+    if (options?.deleteCharges){
       // console.log('deleteCharges log')
         load = {
           charges: [...allCharges]
         }
     }
-    if (options?.updateSummary && this.summaryFormGroup.valid) {
+    if (options?.updateSummary && this.summaryFormGroup.valid){
       // console.log('summaryFormGroup VALID')
       load = {
         distanceMiles: this.summaryFormGroup.controls.distanceMiles.value,
@@ -458,7 +461,7 @@ export class DetailComponent implements OnInit {
         // balanceAmount: this.summaryFormGroup.controls.balanceAmount.value,
       }
     }
-    if (options?.updateTender) {
+    if (options?.updateTender){
       // console.log('updateTender CALLED')
       load = {
         status: 'tender'
@@ -521,7 +524,7 @@ export class DetailComponent implements OnInit {
     // }
   }
 
-  getChargesAdditionalCharges() {
+  getChargesAdditionalCharges(){
     if(this.load && Object.keys(this.load).length > 0 && this.load?.charges.length > 0){
       this.additionalCharges = 0;
       // console.log('getChargesAdditionalCharges');
@@ -595,7 +598,7 @@ export class DetailComponent implements OnInit {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.load?.charges.splice(this.load?.charges.findIndex(function(i: any){
           return i._id === charges._id;
         }), 1);
@@ -606,7 +609,7 @@ export class DetailComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your Charge ' + chargesName + ' is safe :)',
@@ -629,7 +632,7 @@ export class DetailComponent implements OnInit {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.load.goods.splice(this.load.goods.findIndex(function(i: any){
           return i._id === goods._id;
         }), 1);
@@ -642,7 +645,7 @@ export class DetailComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your Good ' + goodsName + ' is safe :)',
@@ -686,7 +689,7 @@ export class DetailComponent implements OnInit {
     this.customerDestinationAddress = this.loadsService.beautifyAddress(destinationAddress);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.routeSub.unsubscribe();
     this.loadSubscription.unsubscribe();
     this.customersSubscription.unsubscribe();
@@ -694,7 +697,7 @@ export class DetailComponent implements OnInit {
     this.originsSubscription.unsubscribe();
   }
 
-  open(content: any) {
+  open(content: any){
     this.createChargesFormGroup.patchValue({
       payableToDriver: false,
       billableToCustomer: false,
@@ -704,7 +707,34 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  openInviteDriver(content: any) {
+  interestedDriverInvited(interestedDriver: any){
+    this.isInterestedDriverInvited = true;
+    this.selectedDriverToSendInvite = interestedDriver?.id;
+    this.inviteDriverFormGroup.patchValue({
+      invitedDriver: interestedDriver?.id?.id
+    });
+    this.inviteDriverFormGroup.patchValue({
+      ratePerMileOfDriver: interestedDriver?.id?.ratePerMile
+    });
+    this.hideUpdateRatePerMileInput = false;
+  }
+
+  openInterestedDrivers(content: any){
+    this.isDriverInvite = false;
+    this.isInterestedDriverInvited = false;
+    this.inviteDriverPopupHeading = 'Interested Drivers';
+    this.hideUpdateRatePerMileInput = true
+    this.hideUpdateRatePerMileToggleOnDriverProfile = true
+    this.modalService.open(content, this.inviteDriverModalOptions).result.then(
+      (result) => {
+      }, (reason) => {
+      });
+  }
+
+  openInviteDriver(content: any){
+    this.isDriverInvite = true;
+    this.isInterestedDriverInvited = false;
+    this.inviteDriverPopupHeading = 'Invite Driver';
     this.hideUpdateRatePerMileInput = true
     this.hideUpdateRatePerMileToggleOnDriverProfile = true
     this.modalService.open(content, this.inviteDriverModalOptions).result.then((result) => {
@@ -728,7 +758,7 @@ export class DetailComponent implements OnInit {
   hideUpdateRatePerMileToggleOnDriverProfile: any = true;
   hideUpdateRatePerMileInput: any = true;
 
-  changeDriverInvite(driver: any) {
+  changeDriverInvite(driver: any){
     this.hideUpdateRatePerMileToggleOnDriverProfile = true
     this.hideUpdateRatePerMileInput = false
     // console.log('changeDriverInvite');
@@ -745,7 +775,7 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  checkRatePerMileOfInvitedDriver(ratePerMile: any) {
+  checkRatePerMileOfInvitedDriver(ratePerMile: any){
     // console.log('checkRatePerMileOfInvitedDriver');
     // console.log(ratePerMile);
     if(this.selectedDriverToSendInvite.ratePerMile !== ratePerMile.value){

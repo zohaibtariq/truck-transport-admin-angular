@@ -16,7 +16,7 @@ export class ConfigurationsService {
   goods$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   good$: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient){ }
 
   getGood(id:any): Subscription {
     return this.http.get<{}>(API_USERS_URL+'goods-management/'+id)

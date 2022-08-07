@@ -10,7 +10,7 @@ export class AssignedComponent implements OnInit {
   heading = 'Assigned';
   status = 'assigned';
 
-  constructor() { }
+  constructor(){ }
 
   ngOnInit(): void {
   }

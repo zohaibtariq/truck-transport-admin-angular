@@ -20,7 +20,7 @@ export class TypesService {
   customers$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   shippers$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient){ }
 
   getProfile(id:any): Subscription {
     return this.http.get<{}>(API_USERS_URL+this.profileRoutePath+'/'+id)

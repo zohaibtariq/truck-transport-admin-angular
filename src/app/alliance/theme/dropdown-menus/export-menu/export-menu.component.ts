@@ -16,13 +16,13 @@ export class ExportMenuComponent implements OnInit {
   filterFormGroup: FormGroup;
   selected: {startDate: any, endDate: any};
 
-  constructor(private typesService: TypesService, private fb: FormBuilder) {}
+  constructor(private typesService: TypesService, private fb: FormBuilder){}
 
   ngOnInit(): void {
     this.initForm()
   }
 
-  initForm() {
+  initForm(){
     this.filterFormGroup = this.fb.group(
       {
         search: [
@@ -42,8 +42,8 @@ export class ExportMenuComponent implements OnInit {
     );
   }
 
-  filterSubmit() {
-    if (this.filterFormGroup.valid) {
+  filterSubmit(){
+    if (this.filterFormGroup.valid){
       let filters:any = {};
       // let product:any = {};
       if(this.filterFormGroup.controls.active.value)
@@ -86,7 +86,7 @@ export class ExportMenuComponent implements OnInit {
     this.listenResetFilter.emit();
   }
 
-  // filterProducts() {
+  // filterProducts(){
   // this.productSubscription = this.typesService.profiles$.subscribe((products: any) => {
   // });
   // this.typesService.getAllProfiles(this.type, 1);

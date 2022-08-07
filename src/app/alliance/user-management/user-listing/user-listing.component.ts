@@ -35,7 +35,7 @@ export class UserListingComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private titleCasePipe: TitleCasePipe,
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -48,11 +48,11 @@ export class UserListingComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.userSubscription.unsubscribe();
   }
 
-  initForm() {
+  initForm(){
     this.createUserFormGroup = this.fb.group(
       {
         name: ['', Validators.compose([Validators.required])],
@@ -65,9 +65,9 @@ export class UserListingComponent implements OnInit {
     );
   }
 
-  submit() {
+  submit(){
     this.createUserFormError = ''
-    if (this.createUserFormGroup.valid) {
+    if (this.createUserFormGroup.valid){
       let user = {
         name: this.createUserFormGroup.controls.name.value,
         active: this.createUserFormGroup.controls.active.value === true,
@@ -96,7 +96,7 @@ export class UserListingComponent implements OnInit {
     }
   }
 
-  subscribeUser() {
+  subscribeUser(){
     this.userSubscription = this.userManagementService.users$.subscribe((users: any) => {
       // console.log('users')
       // console.log(users)
@@ -117,13 +117,13 @@ export class UserListingComponent implements OnInit {
     this.userManagementService.getAllUsers(pageNum, 'sortBy=createdAt:desc');
   }
 
-  open(content: any) {
+  open(content: any){
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {
     });
   }
 
-  filterSubmit(queryString: any) {
+  filterSubmit(queryString: any){
     // console.log('User : filterSubmit');
     // console.log(queryString);
     // queryString = queryString.replaceAll('location_', '');
@@ -131,7 +131,7 @@ export class UserListingComponent implements OnInit {
     this.userManagementService.getAllUsers(1, queryString+((queryString!==''&&queryString!==undefined)?'&':'')+'sortBy=createdAt:desc');
   }
 
-  resetFilter() {
+  resetFilter(){
     this.userManagementService.getAllUsers(1, 'sortBy=createdAt:desc');
   }
 
@@ -148,7 +148,7 @@ export class UserListingComponent implements OnInit {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.userManagementService.deleteUser(user.id).pipe(shareReplay(), first())
           .subscribe((user: any) => {
             this.userManagementService.getAllUsers(this.page, 'sortBy=createdAt:desc');
@@ -159,7 +159,7 @@ export class UserListingComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your user ' + fullUserName + ' is safe :)',

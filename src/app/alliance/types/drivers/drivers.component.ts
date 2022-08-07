@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './drivers.component.html',
 })
 export class DriversComponent {
-  constructor() {}
+  constructor(){}
 
   heading = 'Drivers';
   type = {'isDriver': true};

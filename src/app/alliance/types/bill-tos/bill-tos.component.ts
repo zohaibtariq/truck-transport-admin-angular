@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BillTosComponent implements OnInit {
 
-  constructor() { }
+  constructor(){ }
 
   heading = 'Bill Tos';
   type = {'isBillTo': true};

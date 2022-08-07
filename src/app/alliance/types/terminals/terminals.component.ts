@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TerminalsComponent implements OnInit {
 
-  constructor() { }
+  constructor(){ }
 
   heading = 'Terminals';
   type = {'isTerminal': true};

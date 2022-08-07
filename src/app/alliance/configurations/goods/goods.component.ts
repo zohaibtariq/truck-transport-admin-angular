@@ -35,7 +35,7 @@ export class GoodsComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private titleCasePipe: TitleCasePipe,
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -48,11 +48,11 @@ export class GoodsComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.goodSubscription.unsubscribe();
   }
 
-  initForm() {
+  initForm(){
     this.createGoodFormGroup = this.fb.group(
       {
         name: ['', Validators.compose([Validators.required])],
@@ -68,9 +68,9 @@ export class GoodsComponent implements OnInit {
     );
   }
 
-  submit() {
+  submit(){
     this.createGoodFormError = ''
-    if (this.createGoodFormGroup.valid) {
+    if (this.createGoodFormGroup.valid){
       let good = {
         name: this.createGoodFormGroup.controls.name.value,
         // active: this.createGoodFormGroup.controls.active.value === true,
@@ -95,9 +95,9 @@ export class GoodsComponent implements OnInit {
     }
   }
 
-  update() {
+  update(){
     this.editGoodFormError = ''
-    if (this.editGoodFormGroup.valid) {
+    if (this.editGoodFormGroup.valid){
       let good = {
         name: this.editGoodFormGroup.controls.name.value,
         // active: this.editGoodFormGroup.controls.active.value === true,
@@ -126,7 +126,7 @@ export class GoodsComponent implements OnInit {
       });
   }
 
-  subscribeGood() {
+  subscribeGood(){
     this.goodSubscription = this.goodsService.goods$.subscribe((goods: any) => {
       // console.log('goods')
       // console.log(goods)
@@ -147,7 +147,7 @@ export class GoodsComponent implements OnInit {
     this.goodsService.getAllGoods(pageNum, 'active=true&sortBy=createdAtDateTime:desc');
   }
 
-  open(content: any) {
+  open(content: any){
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {
     });
@@ -166,7 +166,7 @@ export class GoodsComponent implements OnInit {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.callUpdateService(good.id, {active: false});
         Swal.fire({
           title: 'Deleted!',
@@ -174,7 +174,7 @@ export class GoodsComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your good ' + fullGoodName + ' is safe :)',

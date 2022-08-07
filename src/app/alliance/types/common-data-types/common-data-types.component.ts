@@ -48,7 +48,7 @@ export class CommonDataTypesComponent {
     private titleCasePipe: TitleCasePipe,
     private userManagementService: UserManagementService,
     private countryService: CountryService,
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -64,7 +64,7 @@ export class CommonDataTypesComponent {
     this.reInitForm();
   }
 
-  reInitForm() {
+  reInitForm(){
     if(this.createFormGroup){
       this.createFormGroup.patchValue({
         active: false,
@@ -79,12 +79,12 @@ export class CommonDataTypesComponent {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.productSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
   }
 
-  initForm() {
+  initForm(){
     this.createFormGroup = this.fb.group(
       {
         locationId: [
@@ -161,8 +161,8 @@ export class CommonDataTypesComponent {
     );
   }
 
-  submit() {
-    if (this.createFormGroup.valid) {
+  submit(){
+    if (this.createFormGroup.valid){
       let active = this.createFormGroup.controls.active.value;
       let product = {
         active: ((active === null || active === undefined || active === '' || active === false) ? false : true),
@@ -205,7 +205,7 @@ export class CommonDataTypesComponent {
     this.subscribeUsers()
   }
 
-  subscribeProduct() {
+  subscribeProduct(){
     this.productSubscription = this.typesService.profiles$.subscribe((products: any) => {
       this.products =  products.results
       // console.log("products");
@@ -232,13 +232,13 @@ export class CommonDataTypesComponent {
     this.userManagementService.getAllUsers(1, 'active=true');
   }
 
-  paginationClicked(pageNum: any) {
+  paginationClicked(pageNum: any){
     // console.log('clicked page num is : ' + pageNum);
     this.page = pageNum;
     this.typesService.getAllProfiles(this.type, this.page);
   }
 
-  open(content: any) {
+  open(content: any){
       this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {});
   }
@@ -247,7 +247,7 @@ export class CommonDataTypesComponent {
     this.typesService.exportProfiles(this.type);
   }
 
-  filterSubmit(filters: any) {
+  filterSubmit(filters: any){
     let profileFilters:any = {};
     if(filters['active'])
       profileFilters['active'] = filters['active']
@@ -270,7 +270,7 @@ export class CommonDataTypesComponent {
     this.typesService.getAllProfiles(this.type, 1, queryString);
   }
 
-  resetFilter() {
+  resetFilter(){
     this.typesService.getAllProfiles(this.type, 1, '');
   }
 
@@ -287,7 +287,7 @@ export class CommonDataTypesComponent {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.typesService.deleteProfile(profile.id).pipe(shareReplay(), first())
           .subscribe((profile: any) => {
             this.typesService.getAllProfiles(this.type, 1, '');
@@ -298,7 +298,7 @@ export class CommonDataTypesComponent {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your profile ' + profileLocationName + ' is safe :)',
@@ -309,7 +309,7 @@ export class CommonDataTypesComponent {
     })
   }
 
-  onCountryChange(selectedCountryId: any, callback: any = function(){}) {
+  onCountryChange(selectedCountryId: any, callback: any = function(){}){
     let countryId = selectedCountryId.target.value;
     this.countryIsoCode = _.find(this.countries, (country) => {
       return country._id === countryId;
@@ -330,7 +330,7 @@ export class CommonDataTypesComponent {
         })
   }
 
-  onStateChange(selectedStateId: any, callback: any = function(){}) {
+  onStateChange(selectedStateId: any, callback: any = function(){}){
     // console.log('onStateChange CALLED');
     let stateId = selectedStateId.target.value;
     this.stateIsoCode = _.find(this.states, (state) => {

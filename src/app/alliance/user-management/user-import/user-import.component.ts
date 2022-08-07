@@ -17,7 +17,7 @@ export class UserImportComponent implements OnInit {
     private userManagementService: UserManagementService,
     private ref: ChangeDetectorRef,
     private router: Router
-  ) { }
+  ){ }
 
   ngOnInit(): void {
   }
@@ -35,7 +35,7 @@ export class UserImportComponent implements OnInit {
     // console.log($event)
     let text = [];
     let files = $event.srcElement.files;
-    if (this.isValidCSVFile(files[0])) {
+    if (this.isValidCSVFile(files[0])){
       let input = $event.target;
       let reader = new FileReader();
       reader.readAsText(input.files[0]);
@@ -73,7 +73,7 @@ export class UserImportComponent implements OnInit {
             this.ref.detectChanges();
           });
       };
-      reader.onerror = function () {
+      reader.onerror = function (){
         // console.log('error is occured while reading file!');
       };
     } else {
@@ -82,12 +82,12 @@ export class UserImportComponent implements OnInit {
     }
   }
 
-  getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
+  getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any){
     let csvArr = [];
     let userEmails = [];
-    for (let i = 1; i < csvRecordsArray.length; i++) {
+    for (let i = 1; i < csvRecordsArray.length; i++){
       let currentRecord = (<string>csvRecordsArray[i]).split(',');
-      if (currentRecord.length == headerLength) {
+      if (currentRecord.length == headerLength){
         let csvRecord: CSVRecord = new CSVRecord();
         csvRecord.role = currentRecord[0].trim().replace(/["']/g, "");
         csvRecord.active = (currentRecord[1].trim().replace(/["']/g, "") === 'true' ? true : false);
@@ -110,20 +110,20 @@ export class UserImportComponent implements OnInit {
     return csvArr;
   }
 
-  isValidCSVFile(file: any) {
+  isValidCSVFile(file: any){
     return file.name.endsWith(".csv");
   }
 
-  getHeaderArray(csvRecordsArr: any) {
+  getHeaderArray(csvRecordsArr: any){
     let headers = (<string>csvRecordsArr[0]).split(',');
     let headerArray = [];
-    for (let j = 0; j < headers.length; j++) {
+    for (let j = 0; j < headers.length; j++){
       headerArray.push(headers[j]);
     }
     return headerArray;
   }
 
-  fileReset() {
+  fileReset(){
     this.csvReader.nativeElement.value = "";
     this.records = [];
     this.importUserEmails = [];

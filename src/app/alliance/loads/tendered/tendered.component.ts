@@ -10,7 +10,7 @@ export class TenderedComponent implements OnInit {
   heading = 'Tendered';
   status = 'tender';
 
-  constructor() { }
+  constructor(){ }
 
   ngOnInit(): void {
   }

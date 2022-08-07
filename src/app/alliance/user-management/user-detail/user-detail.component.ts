@@ -38,7 +38,7 @@ export class UserDetailComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private toastr: ToastrService
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -51,7 +51,7 @@ export class UserDetailComponent implements OnInit {
     this.subscribers();
   }
 
-  initForm() {
+  initForm(){
     this.editUserFormGroup = this.fb.group(
       {
         name: ['', Validators.compose([Validators.required])],
@@ -64,9 +64,9 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-  update() {
+  update(){
     this.editUserFormError = '';
-    if (this.editUserFormGroup.valid) {
+    if (this.editUserFormGroup.valid){
       let user = {
         name: this.editUserFormGroup.controls.name.value,
         active: this.editUserFormGroup.controls.active.value === true,
@@ -110,12 +110,12 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.routeSub.unsubscribe();
     this.userSubscription.unsubscribe();
   }
 
-  open(content: any) {
+  open(content: any){
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {
     });

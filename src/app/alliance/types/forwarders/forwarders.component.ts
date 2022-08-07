@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForwardersComponent implements OnInit {
 
-  constructor() { }
+  constructor(){ }
 
   heading = 'Forwarders';
   type = {'isForwarder': true};

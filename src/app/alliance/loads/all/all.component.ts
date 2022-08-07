@@ -10,7 +10,7 @@ export class AllComponent implements OnInit {
   heading = 'All';
   status = '';
 
-  constructor() { }
+  constructor(){ }
 
   ngOnInit(): void {
   }

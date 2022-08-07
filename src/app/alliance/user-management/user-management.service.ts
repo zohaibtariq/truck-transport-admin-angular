@@ -16,7 +16,7 @@ export class UserManagementService {
   users$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   user$: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient){ }
 
   getUser(id:any): Subscription {
     return this.http.get<{}>(API_USERS_URL+'users-management/'+id)

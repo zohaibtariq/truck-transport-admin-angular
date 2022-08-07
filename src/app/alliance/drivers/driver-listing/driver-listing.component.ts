@@ -49,7 +49,7 @@ export class DriverListingComponent implements OnInit {
     private titleCasePipe: TitleCasePipe,
     private userManagementService: UserManagementService,
     private countryService: CountryService,
-  ) {
+  ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
@@ -62,12 +62,12 @@ export class DriverListingComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.driverSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
   }
 
-  initForm() {
+  initForm(){
     this.createDriverFormGroup = this.fb.group(
       {
         ratePerMile: [
@@ -162,8 +162,8 @@ export class DriverListingComponent implements OnInit {
     this.subscribeUsers()
   }
 
-  submit() {
-    if (this.createDriverFormGroup.valid) {
+  submit(){
+    if (this.createDriverFormGroup.valid){
       let active = this.createDriverFormGroup.controls.active.value;
       let driver = {
         ratePerMile: parseFloat(this.createDriverFormGroup.controls.ratePerMile.value).toFixed(2),
@@ -195,7 +195,7 @@ export class DriverListingComponent implements OnInit {
     }
   }
 
-  subscribeDriver() {
+  subscribeDriver(){
     this.driverSubscription = this.driversService.drivers$.subscribe((drivers: any) => {
       this.drivers =  drivers.results
       this.page = drivers.page;
@@ -224,13 +224,13 @@ export class DriverListingComponent implements OnInit {
     this.driversService.getAllDrivers(pageNum);
   }
 
-  open(content: any) {
+  open(content: any){
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {
     });
   }
 
-  filterSubmit(filters: any) {
+  filterSubmit(filters: any){
     let driverFilters:any = {};
     if(filters['active'])
       driverFilters['active'] = filters['active']
@@ -247,7 +247,7 @@ export class DriverListingComponent implements OnInit {
     this.driversService.getAllDrivers(1, queryString);
   }
 
-  resetFilter() {
+  resetFilter(){
     this.driversService.getAllDrivers(1, '');
   }
 
@@ -264,7 +264,7 @@ export class DriverListingComponent implements OnInit {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
-      if (result.value) {
+      if (result.value){
         this.driversService.deleteDriver(driver.id).pipe(shareReplay(), first())
           .subscribe((driver: any) => {
             this.driversService.getAllDrivers(this.page);
@@ -275,7 +275,7 @@ export class DriverListingComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: '#50CD89'
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      } else if (result.dismiss === Swal.DismissReason.cancel){
         Swal.fire({
           title: 'Cancelled',
           html: 'Your driver ' + fullDriverName + ' is safe :)',
@@ -294,7 +294,7 @@ export class DriverListingComponent implements OnInit {
     return parseFloat(number);
   }
 
-  onCountryChange(selectedCountryId: any, callback: any = function(){}) {
+  onCountryChange(selectedCountryId: any, callback: any = function(){}){
     let countryId = selectedCountryId.target.value;
     this.countryIsoCode = _.find(this.countries, (country) => {
       return country._id === countryId;
@@ -315,7 +315,7 @@ export class DriverListingComponent implements OnInit {
       })
   }
 
-  onStateChange(selectedStateId: any, callback: any = function(){}) {
+  onStateChange(selectedStateId: any, callback: any = function(){}){
     // console.log('onStateChange CALLED');
     let stateId = selectedStateId.target.value;
     this.stateIsoCode = _.find(this.states, (state) => {

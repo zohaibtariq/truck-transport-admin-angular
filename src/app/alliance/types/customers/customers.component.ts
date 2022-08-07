@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 export class CustomersComponent {
 
-  constructor() {}
+  constructor(){}
 
   heading = 'Customers';
   type = {'isCustomer': true};
