@@ -9,6 +9,7 @@ import { UsersTable } from '../../../../../_fake/users.table';
 import { environment } from '../../../../../../environments/environment';
 
 // const API_USERS_URL = `api/users`;
+const API_URL = `${environment.apiUrl}`;
 const API_USERS_URL = `${environment.apiUrl}auth/login`;
 
 @Injectable({
@@ -82,15 +83,22 @@ export class AuthHTTPService {
     return this.http.post<UserModel>(API_USERS_URL, user);
   }
 
-  forgotPassword(email: string): Observable<boolean> {
-    return this.getAllUsers().pipe(
-      map((result: UserModel[]) => {
-        const user = result.find(
-          (u) => u.email.toLowerCase() === email.toLowerCase()
-        );
-        return user !== undefined;
-      })
-    );
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post<any[]>(API_URL+'auth/forgot-password',  {
+      "email": email
+    });
+    // return this.getAllUsers().pipe(
+    //   map((result: UserModel[]) => {
+    //     const user = result.find(
+    //       (u) => u.email.toLowerCase() === email.toLowerCase()
+    //     );
+    //     return user !== undefined;
+    //   })
+    // );
+  }
+
+  resetPassword(resetPassData: any): Observable<any> {
+    return this.http.post<any[]>(API_URL+'auth/reset-password?token='+resetPassData?.token,  {password: resetPassData?.password});
   }
 
   getUserByToken(token: string): Observable<UserModel | undefined> {

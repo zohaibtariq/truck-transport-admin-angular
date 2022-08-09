@@ -7,13 +7,14 @@ import {first} from "rxjs/operators";
 import {saveAs} from "file-saver";
 
 const API_USERS_URL = `${environment.apiUrl}`;
+const MAX_LIMIT = `${environment.maxLimit}`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class DriversService {
 
-  maxLimit = 1000; // TODO:: pick it from environment
+  maxLimit = MAX_LIMIT;
   drivers$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   activeDriversToInvite$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   driver$: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
@@ -36,8 +37,10 @@ export class DriversService {
       });
   }
 
-  getActiveDriversToInvite(): Subscription { // TODO:: NO NEED TO DO IT INVESTIGATE IT FURTHER IF SUCH REQ REALLY NEEDED, pass driver id to ignore as a param take this id in query string to api and get data from api without that id.
-    // return this.http.get<any[]>(API_USERS_URL+this.profileRoutePath+'?limit='+this.maxLimit)
+  getActiveDriversToInvite(): Subscription {
+    // TODO:: NO NEED TO DO IT INVESTIGATE IT FURTHER IF SUCH REQ REALLY NEEDED, pass driver id to ignore as a param take this id in query string to api and get data from api without that id.
+    //  (I have researched over it and decided its not required bcz if i skip then they will not be able to send invite to same driver again
+    //  if driver doesn't receives it then he might ask them to invite him again.)
     return this.http.get<any[]>(API_USERS_URL+'drivers?limit='+this.maxLimit)
       .pipe(shareReplay(), first())
       .subscribe((drivers: any | undefined) => {

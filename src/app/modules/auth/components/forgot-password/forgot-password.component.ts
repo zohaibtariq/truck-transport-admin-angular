@@ -39,7 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
   initForm() {
     this.forgotPasswordForm = this.fb.group({
       email: [
-        'admin@demo.com',
+        '',
         Validators.compose([
           Validators.required,
           Validators.email,
@@ -52,12 +52,34 @@ export class ForgotPasswordComponent implements OnInit {
 
   submit() {
     this.errorState = ErrorStates.NotSubmitted;
-    const forgotPasswordSubscr = this.authService
+    this.authService.updateIsLoadingSubject(true);
+    // return false;
+    const forgotPasswordSubscriber = this.authService
       .forgotPassword(this.f.email.value)
       .pipe(first())
-      .subscribe((result: boolean) => {
-        this.errorState = result ? ErrorStates.NoError : ErrorStates.HasError;
-      });
-    this.unsubscribe.push(forgotPasswordSubscr);
+      // .subscribe((result: any) => {
+      //   console.log('result')
+      //   console.log(result)
+      //   // this.errorState = false ? ErrorStates.NoError : ErrorStates.HasError;
+      // });
+      .subscribe({
+        next: (result: any) => {
+          this.errorState = ErrorStates.NoError;
+          this.authService.updateIsLoadingSubject(false);
+          console.log('forgotPasswordSubscriber : RESULT')
+          console.log(result)
+        },
+        error: (err: any) => {
+          this.authService.updateIsLoadingSubject(false);
+          this.errorState = ErrorStates.HasError;
+          console.log('forgotPasswordSubscriber : ERROR')
+          console.log(err)
+        },
+        complete: () => {
+          this.authService.updateIsLoadingSubject(false);
+          console.log('COMPLETE')
+        }
+      })
+    this.unsubscribe.push(forgotPasswordSubscriber);
   }
 }

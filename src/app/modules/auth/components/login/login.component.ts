@@ -76,25 +76,31 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const loginSubscr = this.authService
+    const loginSubscriber = this.authService
       .login(this.f.email.value, this.f.password.value)
       .pipe(first())
-      .subscribe((user: any | undefined) => {
-        // console.log('LOGIN RESPONSE');
-        // console.log(user);
-        if (!isObservable(user)) {
-          this.hasError = false;
-          this.router.navigate([this.returnUrl]);
-        } else {
-          this.hasError = true;
+      .subscribe({
+        next: (user: any | undefined) => {
+          console.log('LOGIN : RESPONSE');
+          console.log(user);
+          if (!isObservable(user)) {
+            this.hasError = false;
+            this.router.navigate([this.returnUrl]);
+          } else {
+            this.hasError = true;
+          }
+          console.log('LOGIN : HAS ERROR');
+          console.log(this.hasError);
+        },
+        error: (err: any) => {
+          console.error('LOGIN : ERROR RESPONSE');
+          console.error(err);
+        },
+        complete: () => {
+          console.log('LOGIN : COMPLETE')
         }
-        // console.log('LOGIN HAS ERROR');
-        // console.log(this.hasError);
-      }, (error) => {
-        console.error('LOGIN ERROR RESPONSE');
-        console.error(error);
       });
-    this.unsubscribe.push(loginSubscr);
+    this.unsubscribe.push(loginSubscriber);
   }
 
   ngOnDestroy() {

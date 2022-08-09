@@ -14,6 +14,8 @@ import {TitleCasePipe} from "@angular/common";
 import {GoodsService} from "../../configurations/goods/goods.service";
 import {ChargesService} from "../../configurations/charges/charges.service";
 
+const MAX_LIMIT = `${environment.maxLimit}`;
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -62,7 +64,7 @@ export class DetailComponent implements OnInit {
   inviteDriverPopupHeading: String;
   isDriverInvite: boolean = false;
   isInterestedDriverInvited: boolean = false;
-  maxLimit = 1000; // TODO:: pick it from environment
+  maxLimit = MAX_LIMIT;
 
   constructor(
     private titleCasePipe: TitleCasePipe,
@@ -105,8 +107,8 @@ export class DetailComponent implements OnInit {
   subscribeLoad(){
     this.loadSubscription = this.loadsService.load$.subscribe((load: any) => {
       this.load =  load
-      // console.log("load");
-      // console.log(load);
+      console.log("load");
+      console.log(load);
       this.editLoadFormGroup.patchValue({
         customer: load?.customer?.id,
         proCode: load?.proCode,
@@ -602,7 +604,7 @@ export class DetailComponent implements OnInit {
         this.load?.charges.splice(this.load?.charges.findIndex(function(i: any){
           return i._id === charges._id;
         }), 1);
-        this.update({deleteCharges: true}); // TODO:: delete charges
+        this.update({deleteCharges: true});
         Swal.fire({
           title: 'Deleted!',
           html: 'Your Charge ' + chargesName + ' has been deleted.',
@@ -638,7 +640,7 @@ export class DetailComponent implements OnInit {
         }), 1);
         // console.log('deleteGoods');
         // console.log({...this.load.goods});
-        this.update({deleteGoods: true}); // TODO:: delete goods
+        this.update({deleteGoods: true});
         Swal.fire({
           title: 'Deleted!',
           html: 'Your Good ' + goodsName + ' has been deleted.',

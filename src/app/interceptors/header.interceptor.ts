@@ -54,7 +54,8 @@ export class HeaderInterceptor implements HttpInterceptor {
           this.authService.logout();
           console.log('location reload')
           console.log(this.router.url)
-          if(this.router.url !== '/auth/login')
+          let currentRouteURL = this.router.url.split('?')[0]; // without query param
+          if(currentRouteURL !== '/auth/login')
             document.location.reload();
         }else if(error.error.code === 400) {
           if(error.error.message !== '')
