@@ -110,7 +110,7 @@ export class DetailComponent implements OnInit {
       console.log("load");
       console.log(load);
       this.editLoadFormGroup.patchValue({
-        customer: load?.customer?.id,
+        customer: load?.customer,
         proCode: load?.proCode,
         poHash: load?.poHash,
         shipperRef: load?.shipperRef,

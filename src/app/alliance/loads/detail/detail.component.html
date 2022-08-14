@@ -36,11 +36,11 @@
           type="button"
           data-kt-element="send"
           (click)="openInterestedDrivers(invitedDriverModal)"
+          [disabled]="load?.driverInterests?.length === 0"
         >
           Interested Drivers ({{load?.driverInterests?.length}})
         </button>
         &nbsp;&nbsp;&nbsp;
-
         <button
           *ngIf="load?.status === 'pending'"
           class="btn btn-primary alliance-yellow-button"

@@ -38,7 +38,7 @@
           <th class="min-w-200px">CUSTOMER</th>
           <th class="min-w-200px">ROUTE</th>
           <th class="min-w-100px">LOAD STATUS</th>
-          <th class="min-w-100px" *ngIf="status === 'tender'">DRIVER INTEREST</th>
+          <!--<th class="min-w-100px" *ngIf="status === 'tender'">DRIVER INTEREST</th>-->
           <th class="min-w-200px text-end">ACTIONS&nbsp;&nbsp;&nbsp;&nbsp;</th>
         </tr>
         </thead>
@@ -48,13 +48,13 @@
             <!--<pre>{{load | json}}</pre>-->
             <div class="d-flex align-items-center">
               <div class="d-flex justify-content-start flex-column">
-                <span class="load-blue-color text-uppercase font-weight-bold">{{load.code}}</span>
-                <span class="load-black-color text-capitalize">Procode: {{load.proCode}}</span>
-<!-- <span class="badge badge-light-success text-uppercase">Procode: {{load.proCode}}</span>-->
+                <span class="load-blue-color text-uppercase font-weight-bold">{{load?.code}}</span>
+                <span class="load-black-color text-capitalize">Procode: {{load?.proCode}}</span>
+<!-- <span class="badge badge-light-success text-uppercase">Procode: {{load?.proCode}}</span>-->
               </div>
             </div>
             <div>
-              <span class="load-grey-color text-capitalize">{{load.createdAtDateTime | date:'medium'}}</span>
+              <span class="load-grey-color text-capitalize">{{load?.createdAtDateTime | date:'medium'}}</span>
             </div>
           </td>
           <td>
@@ -74,22 +74,28 @@
                 <span class="load-blue-color">View Route</span>
               </div>
             </div>
-            <!--{{load.shipperRef}}-->
+            <!--{{load?.shipperRef}}-->
           </td>
           <td>
             <div class="d-flex align-items-center">
               <div class="d-flex justify-content-start flex-column">
-                <span class="badge badge-light-success text-uppercase">{{load.status}}</span>
+                <span class="badge badge-light-success text-uppercase">{{load?.status}}</span>
               </div>
-            </div>
-          </td>
-          <td *ngIf="load?.status === 'tender'">
-            <div class="d-flex align-items-center">
-              <div class="d-flex justify-content-start flex-column">
+              <div *ngIf="load?.status === 'tender'" class="d-flex justify-content-start flex-column">
+                <ng-container>&nbsp;&nbsp;</ng-container>
+              </div>
+              <div *ngIf="load?.status === 'tender'" class="d-flex justify-content-start flex-column">
                 <span class="badge badge-light-success text-uppercase">{{load?.driverInterests?.length}}</span>
               </div>
             </div>
           </td>
+<!--          <td *ngIf="status === 'tender'">-->
+<!--            <div class="d-flex align-items-center">-->
+<!--              <div class="d-flex justify-content-start flex-column">-->
+<!--                <span class="badge badge-light-success text-uppercase">{{load?.driverInterests?.length}}</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </td>-->
           <td class="text-end">
             <a
               href="javascript:void(0)"
@@ -97,7 +103,7 @@
                 btn btn-icon btn-bg-light btn-active-color-primary btn-sm
                 me-1
               "
-              routerLink="{{'/loads/'+pageSlug+'/'+load.id}}"
+              routerLink="{{'/loads/'+pageSlug+'/'+load?.id}}"
             >
               <span
                 [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'"

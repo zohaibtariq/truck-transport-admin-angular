@@ -154,7 +154,7 @@
       type="submit"
       id="kt_sign_in_submit"
       class="btn btn-lg btn-primary w-100 mb-5"
-      [disabled]="loginForm.invalid"
+      [disabled]="loginForm.invalid || (isLoading$ | async)"
     >
       <ng-container *ngIf="isLoading$ | async">
         <span class="indicator-progress" [style.display]="'block'">
