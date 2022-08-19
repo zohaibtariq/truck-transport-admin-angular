@@ -359,10 +359,11 @@ export class DetailComponent implements OnInit {
         "isInviteAcceptedByDriver": false,
         "onTheWayToDelivery": false,
         "deliveredToCustomer": false,
-        "invitationSentToDrivers": [
-          {"id": this.inviteDriverFormGroup.controls.invitedDriver.value}
-        ],
-        "lastInvitedDriver": this.inviteDriverFormGroup.controls.invitedDriver.value,
+        "invitationSentToDriverId": this.inviteDriverFormGroup.controls.invitedDriver.value,
+        // "invitationSentToDrivers": [
+        //   {"id": this.inviteDriverFormGroup.controls.invitedDriver.value}
+        // ],
+        // "lastInvitedDriver": this.inviteDriverFormGroup.controls.invitedDriver.value,
         driverRatePerMile: 0,
       };
       if(this.inviteDriverFormGroup.controls.ratePerMileOfDriver.value !== ''){ // ratePerMileOfDriver updateRatePerMileOnDriverProfile
