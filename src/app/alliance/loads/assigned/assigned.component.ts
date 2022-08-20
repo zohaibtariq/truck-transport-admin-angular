@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssignedComponent implements OnInit {
 
-  heading = 'Assigned';
+  heading = 'Invited';
   status = 'assigned';
 
   constructor(){ }
