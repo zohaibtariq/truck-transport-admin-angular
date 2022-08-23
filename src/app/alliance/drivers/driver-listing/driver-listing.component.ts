@@ -155,7 +155,7 @@ export class DriverListingComponent implements OnInit {
   }
 
   subscribers(){
-    this.countryService.countries$.subscribe((countries) => {
+    this.countryService.countries$.subscribe((countries: any) => {
       this.countries = countries;
     })
     this.subscribeDriver()

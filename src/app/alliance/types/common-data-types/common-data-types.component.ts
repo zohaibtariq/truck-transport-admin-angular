@@ -198,7 +198,7 @@ export class CommonDataTypesComponent {
   }
 
   subscribers(){
-    this.countryService.countries$.subscribe((countries) => {
+    this.countryService.countries$.subscribe((countries: any) => {
       this.countries = countries;
     })
     this.subscribeProduct()
