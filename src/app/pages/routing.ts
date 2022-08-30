@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import {UserManagementModule} from "../alliance/user-management/user-management.module";
-import {ConfigurationsModule} from "../alliance/configurations/configurations.module";
+// import {UserManagementModule} from "../alliance/user-management/user-management.module";
+// import {ConfigurationsModule} from "../alliance/configurations/configurations.module";
 
 const Routing: Routes = [
   // {
