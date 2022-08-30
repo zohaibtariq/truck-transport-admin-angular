@@ -6,7 +6,8 @@ const ports = {
   customer: 4201,
   api: 3001,
 };
-const apiPathWithPort = 'http://localhost:' + ports.api + '/';
+const serverIPDomain = '20.25.132.122';
+const apiPathWithPort = 'http://' + serverIPDomain + ':' + ports.api + '/';
 export const environment = {
   production: false,
   appVersion: 'v1.0.0',
