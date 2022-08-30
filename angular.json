@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo1": {
+    "alliance": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo1",
+            "outputPath": "dist/alliance",
             "allowedCommonJsDependencies": [
               "object-path",
               "apexcharts",
@@ -54,7 +54,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "6kb"
                 }
               ],
               "fileReplacements": [
@@ -72,6 +72,27 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "staging": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
@@ -80,10 +101,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "demo1:build:production"
+              "browserTarget": "alliance:build:production"
+            },
+            "staging": {
+              "browserTarget": "alliance:build:staging"
             },
             "development": {
-              "browserTarget": "demo1:build:development"
+              "browserTarget": "alliance:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -91,7 +115,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo1:build"
+            "browserTarget": "alliance:build"
           }
         },
         "test": {
@@ -124,7 +148,7 @@
       }
     }
   },
-  "defaultProject": "demo1",
+  "defaultProject": "alliance",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }

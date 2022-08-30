@@ -4,9 +4,9 @@
 const ports = {
   admin: 4200,
   customer: 4201,
-  api: 3000,
+  api: 3001,
 };
-const serverIPDomain = 'localhost';
+const serverIPDomain = '20.25.132.122';
 const apiPathWithPort = 'http://' + serverIPDomain + ':' + ports.api + '/';
 export const environment = {
   production: false,
