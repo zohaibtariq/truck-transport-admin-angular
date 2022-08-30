@@ -69,7 +69,7 @@
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1">
             <p class="d-flex flex-grow-1-custom">Created Date</p>
-            <p class="d-flex flex-grow-1-custom text-uppercase">{{load?.createdAtDateTime | date:'medium'}}</p>
+            <p class="d-flex flex-grow-1-custom">{{load?.createdAtDateTime | date:'medium'}}</p>
           </div>
         </div>
         <div class="d-flex">
@@ -728,13 +728,33 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="mb-3 row">
+            <!--<div class="mb-3 row">
               <label for="Customer" class="col-sm-4 col-form-label">Customer*</label>
               <div class="col-sm-8">
                 <select formControlName="customer" id="Customer" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" (change)="onCustomerChange($event)">
                   <option selected value="">Customer</option>
                   <option *ngFor="let customer of customers" value="{{customer?.id}}" class="text-capitalize">{{customer?.location?.name}}</option>
                 </select>
+              </div>
+            </div>-->
+            <div class="mb-3 row">
+              <label for="customer" class="col-sm-4 col-form-label">Customer*</label>
+              <div class="col-sm-8">
+                <ng-select
+                  (change)="onCustomerChange($event)"
+                  bindLabel="location.name"
+                  placeholder="Select customer"
+                  appendTo="body"
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                  formControlName="customer"
+                  id="customer"
+                >
+                  <ng-option [value]="customer.id" [disabled]="customer.disabled" *ngFor="let customer of customers">
+                    {{customer?.location?.name}}
+                  </ng-option>
+                </ng-select>
               </div>
             </div>
           </div>
@@ -781,7 +801,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <div class="mb-3 row grey-box">
+            <!--<div class="mb-3 row grey-box">
               <label for="origin" class="col-sm-12 col-form-label">Origin*</label>
               <div class="col-sm-12">
                 <select formControlName="origin" id="origin" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" (change)="onOriginShipperChange($event)">
@@ -790,16 +810,58 @@
                 </select>
               </div>
               <p class="grey-box-address">{{originShipperAddress}}</p>
+            </div>-->
+            <div class="mb-3 row grey-box">
+              <label for="origin" class="col-sm-4 col-form-label">Origin*</label>
+              <div class="col-sm-12">
+                <ng-select
+                  (change)="onOriginShipperChange($event)"
+                  bindLabel="location.name"
+                  placeholder="Select origin"
+                  appendTo="body"
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                  formControlName="origin"
+                  id="origin"
+                >
+                  <ng-option [value]="originShipper.id" [disabled]="originShipper.disabled" *ngFor="let originShipper of originShippers">
+                    {{originShipper?.location?.name}}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <p class="grey-box-address">{{originShipperAddress}}</p>
             </div>
           </div>
           <div class="col">
-            <div class="mb-3 row grey-box">
+            <!--<div class="mb-3 row grey-box">
               <label for="destination" class="col-sm-12 col-form-label">Destination</label>
               <div class="col-sm-12">
                 <select formControlName="destination" id="destination" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" (change)="onDestinationChange($event)">
                   <option selected value="">Destination</option>
                   <option *ngFor="let customerDestination of customerDestinations" value="{{customerDestination?.id}}" class="text-capitalize">{{customerDestination?.location?.name}}</option>
                 </select>
+              </div>
+              <p class="grey-box-address">{{customerDestinationAddress}}</p>
+            </div>-->
+            <div class="mb-3 row grey-box">
+              <label for="destination" class="col-sm-4 col-form-label">Destination*</label>
+              <div class="col-sm-12">
+                <ng-select
+                  (change)="onDestinationChange($event)"
+                  bindLabel="location.name"
+                  placeholder="Select destination"
+                  appendTo="body"
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                  formControlName="destination"
+                  id="destination"
+                >
+                  <ng-option [value]="customerDestination.id" [disabled]="customerDestination.disabled" *ngFor="let customerDestination of customerDestinations">
+                    {{customerDestination?.location?.name}}
+                  </ng-option>
+                </ng-select>
               </div>
               <p class="grey-box-address">{{customerDestinationAddress}}</p>
             </div>

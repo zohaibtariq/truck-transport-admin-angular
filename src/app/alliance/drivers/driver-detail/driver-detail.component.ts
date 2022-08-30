@@ -1,19 +1,19 @@
-import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {shareReplay, Subscription} from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {DriversService} from "../drivers.service";
 import {NgbModal, NgbModalOptions, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {first} from "rxjs/operators";
-import { FileUploader } from 'ng2-file-upload';
-import { ToastrService } from 'ngx-toastr';
+import {FileUploader} from 'ng2-file-upload';
+import {ToastrService} from 'ngx-toastr';
 const URL = 'http://localhost:8080/api/upload';
 import * as _ from 'underscore';
 import {UserManagementService} from "../../user-management/user-management.service";
 import Swal from "sweetalert2";
 import {TitleCasePipe} from '@angular/common';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import { environment } from 'src/environments/environment';
+import {environment} from 'src/environments/environment';
 import {CountryService} from "../../../global/services/country.service";
 
 @Component({

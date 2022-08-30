@@ -154,26 +154,33 @@ export class CommonComponent {
   }
 
   onDestinationChange(id: any){
-    this.updateDestinationAddress(id.target.value)
+    if(id){
+      this.updateDestinationAddress(id)
+      // this.updateDestinationAddress(id.target.value)
+    }
   }
 
-  onCustomerChange(id: any){
-    let objectId = id.target.value
-    this.createFormGroup.patchValue({
-      destination: objectId
-    });
-    this.updateDestinationAddress(objectId)
+  onCustomerChange(objectId: any){
+    if(objectId){
+      // let objectId = id.target.value
+      this.createFormGroup.patchValue({
+        destination: objectId
+      });
+      this.updateDestinationAddress(objectId)
+    }
   }
 
-  onOriginShipperChange(id: any){
-    let objectId = id.target.value
-    let originAddress = _.find(this.originShippers, (originShipper) => {
-      return objectId === originShipper.id;
-    })
-    // console.log('onOriginShipperChange');
-    // console.log(objectId);
-    // console.log(originAddress);
-    this.originShipperAddress = this.loadsService.beautifyAddress(originAddress);
+  onOriginShipperChange(objectId: any){
+    // let objectId = id.target.value
+    if(objectId) {
+      let originAddress = _.find(this.originShippers, (originShipper) => {
+        return objectId === originShipper.id;
+      })
+      // console.log('onOriginShipperChange');
+      // console.log(objectId);
+      // console.log(originAddress);
+      this.originShipperAddress = this.loadsService.beautifyAddress(originAddress);
+    }
   }
 
   updateDestinationAddress(objectId: any){
@@ -193,7 +200,9 @@ export class CommonComponent {
   }
 
   open(content: any){
-    this.modalService.open(content, this.modalOptions).result.then((result) => {
+    this.originShipperAddress = '';
+    this.customerDestinationAddress = '';
+      this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {});
   }
 

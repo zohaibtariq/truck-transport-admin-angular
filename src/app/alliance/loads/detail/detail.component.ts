@@ -110,7 +110,7 @@ export class DetailComponent implements OnInit {
       console.log("load");
       console.log(load);
       this.editLoadFormGroup.patchValue({
-        customer: load?.customer,
+        customer: load?.customer?.id,
         proCode: load?.proCode,
         poHash: load?.poHash,
         shipperRef: load?.shipperRef,
@@ -660,26 +660,33 @@ export class DetailComponent implements OnInit {
   }
 
   onDestinationChange(id: any){
-    this.updateDestinationAddress(id.target.value)
+    if(id){
+      this.updateDestinationAddress(id)
+      // this.updateDestinationAddress(id.target.value)
+    }
   }
 
-  onCustomerChange(id: any){
-    let objectId = id.target.value
-    this.editLoadFormGroup.patchValue({
-      destination: objectId
-    });
-    this.updateDestinationAddress(objectId)
+  onCustomerChange(objectId: any){
+    if(objectId){
+      // let objectId = id.target.value
+      this.editLoadFormGroup.patchValue({
+        destination: objectId
+      });
+      this.updateDestinationAddress(objectId)
+    }
   }
 
-  onOriginShipperChange(id: any){
-    let objectId = id.target.value
-    let originAddress = _.find(this.originShippers, (originShipper) => {
-      return objectId === originShipper.id;
-    })
-    // console.log('onOriginShipperChange');
-    // console.log(objectId);
-    // console.log(originAddress);
-    this.originShipperAddress = this.loadsService.beautifyAddress(originAddress);
+  onOriginShipperChange(objectId: any) {
+    // let objectId = id.target.value
+    if(objectId) {
+      let originAddress = _.find(this.originShippers, (originShipper) => {
+        return objectId === originShipper.id;
+      })
+      // console.log('onOriginShipperChange');
+      // console.log(objectId);
+      // console.log(originAddress);
+      this.originShipperAddress = this.loadsService.beautifyAddress(originAddress);
+    }
   }
 
   updateDestinationAddress(objectId: any){
