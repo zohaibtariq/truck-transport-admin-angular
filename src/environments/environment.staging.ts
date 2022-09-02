@@ -9,7 +9,7 @@ const ports = {
 const serverIPDomain = '20.25.132.122';
 const apiPathWithPort = 'http://' + serverIPDomain + ':' + ports.api + '/';
 export const environment = {
-  production: false,
+  production: true,
   appVersion: 'v1.0.0',
   USERDATA_KEY: 'auths3cr3tAll!@nc3UD@atm',
   isMockEnabled: false,

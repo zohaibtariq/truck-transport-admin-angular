@@ -79,8 +79,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe({
         next: (user: any | undefined) => {
-          console.log('LOGIN : RESPONSE');
-          console.log(user);
+          // console.log('LOGIN : RESPONSE');
+          // console.log(user);
           if (!isObservable(user)) {
             this.hasError = false;
             // console.log('Route Navigation/Redirection is blocked...')
@@ -89,8 +89,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.hasError = true;
           }
           this.authService.updateIsLoadingSubject(false);
-          console.log('LOGIN : HAS ERROR');
-          console.log(this.hasError);
+          // console.log('LOGIN : HAS ERROR');
+          // console.log(this.hasError);
         },
         error: (err: any) => {
           this.authService.updateIsLoadingSubject(false);
@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         complete: () => {
           this.authService.updateIsLoadingSubject(false);
-          console.log('LOGIN : COMPLETE')
+          // console.log('LOGIN : COMPLETE')
         }
       });
     this.unsubscribe.push(loginSubscriber);
