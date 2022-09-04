@@ -22,8 +22,8 @@ const routes: Routes = [
         path: 'detail/:id',
         component: UserDetailComponent,
       },
-      { path: '', redirectTo: 'listing', pathMatch: 'full' },
-      { path: '**', redirectTo: 'listing', pathMatch: 'full' },
+      { path: '', redirectTo: '/users/listing', pathMatch: 'full' },
+      { path: '**', redirectTo: '/users/listing', pathMatch: 'full' },
     ],
   },
 ];

@@ -23,11 +23,11 @@ export class DetailComponent implements OnInit {
   editFormGroup: FormGroup;
   createContactFormGroup: FormGroup;
   editContactFormGroup: FormGroup;
-  private productSubscription: Subscription;
+  private profileSubscription: Subscription;
   private routeSub: Subscription;
   pageSlug: any = '';
   typeId: any;
-  product: any;
+  profile: any;
   title = 'ng-bootstrap-modal-demo';
   modalOptions:NgbModalOptions;
   ngbModalRef: NgbModalRef;
@@ -179,6 +179,7 @@ export class DetailComponent implements OnInit {
         isForwarder: [false, Validators.compose([])],
         isTerminal: [false, Validators.compose([])],
         email: ['', Validators.compose([])],
+        password: ['', Validators.compose([])],
         mcId: ['', Validators.compose([])],
         ediId: ['', Validators.compose([])],
         officeHours: ['', Validators.compose([])],
@@ -266,33 +267,33 @@ export class DetailComponent implements OnInit {
   }
 
   subscribers(){
-    this.subscribeProduct()
+    this.subscribeProfile()
     this.subscribeUsers()
   }
 
-  subscribeProduct(){
+  subscribeProfile(){
     this.countryService.countries$.subscribe((countries: any) => {
       // console.log('COUNTRIES POPULATED')
       this.countries = countries;
     })
-    this.productSubscription = this.typesService.profile$.subscribe((product: any) => {
-      this.product = product
+    this.profileSubscription = this.typesService.profile$.subscribe((profile: any) => {
+      this.profile = profile
       // console.log('TYPE PROD DATA');
-      // console.log(this.product)
+      // console.log(this.profile)
       // setTimeout(() => {
       //   do{
       //     console.log('WORKING DO...')
       //     setTimeout(() => {
-            if(this.countries.length > 0 && product?.location?.country?._id !== undefined){
-              if(product?.location?.state?._id !== undefined){
-                this.onCountryChange({target:{value: product?.location?.country?._id}}, () => {
+            if(this.countries.length > 0 && profile?.location?.country?._id !== undefined){
+              if(profile?.location?.state?._id !== undefined){
+                this.onCountryChange({target:{value: profile?.location?.country?._id}}, () => {
                   this.editFormGroup.patchValue({
-                    locationState: product?.location?.state?._id,
+                    locationState: profile?.location?.state?._id,
                   });
-                  if(this.states.length > 0 && product?.location?.city?._id !== undefined){
-                    this.onStateChange({target:{value: product?.location?.state?._id}}, () => {
+                  if(this.states.length > 0 && profile?.location?.city?._id !== undefined){
+                    this.onStateChange({target:{value: profile?.location?.state?._id}}, () => {
                       this.editFormGroup.patchValue({
-                        locationCity: product?.location?.city?._id,
+                        locationCity: profile?.location?.city?._id,
                       });
                     })
                   }
@@ -304,31 +305,31 @@ export class DetailComponent implements OnInit {
         // while(this.countries === undefined || this.states === undefined || this.countries.length === 0 || this.states.length === 0)
       // }, 3000)
       this.editFormGroup.patchValue({
-        code: product?.code,
-        active: product?.active === true,
-        isBillTo: product?.isBillTo === true,
-        isBroker: product?.isBroker === true,
-        isConsignee: product?.isConsignee === true,
-        isCustomer: product?.isCustomer === true,
-        isForwarder: product?.isForwarder === true,
-        isShipper: product?.isShipper === true,
-        isTerminal: product?.isTerminal === true,
-        locationAddress1: product?.location?.address1,
-        locationCountry: product?.location?.country?._id,
-        locationState: product?.location?.state?._id,
-        locationCity: product?.location?.city?._id,
-        locationExternalId: product?.location?.externalId,
-        locationFax: product?.location?.fax,
-        locationId: product?.location?.id,
-        locationName: product?.location?.name,
-        locationPhone: product?.location?.phone,
-        locationZip: product?.location?.zip,
-        email: product?.email,
-        mcId: product?.mcId,
-        ediId: product?.ediId,
-        notes: product?.notes,
-        officeHours: product?.officeHours,
-        userId: product?.userId,
+        code: profile?.code,
+        active: profile?.active === true,
+        isBillTo: profile?.isBillTo === true,
+        isBroker: profile?.isBroker === true,
+        isConsignee: profile?.isConsignee === true,
+        isCustomer: profile?.isCustomer === true,
+        isForwarder: profile?.isForwarder === true,
+        isShipper: profile?.isShipper === true,
+        isTerminal: profile?.isTerminal === true,
+        locationAddress1: profile?.location?.address1,
+        locationCountry: profile?.location?.country?._id,
+        locationState: profile?.location?.state?._id,
+        locationCity: profile?.location?.city?._id,
+        locationExternalId: profile?.location?.externalId,
+        locationFax: profile?.location?.fax,
+        locationId: profile?.location?.id,
+        locationName: profile?.location?.name,
+        locationPhone: profile?.location?.phone,
+        locationZip: profile?.location?.zip,
+        email: profile?.email,
+        mcId: profile?.mcId,
+        ediId: profile?.ediId,
+        notes: profile?.notes,
+        officeHours: profile?.officeHours,
+        userId: profile?.userId,
       });
       this.modalService.dismissAll();
       this.getSalesPerson();
@@ -351,20 +352,20 @@ export class DetailComponent implements OnInit {
   }
 
   updateContactPerson(){
-    let contactPersonIndex = this.product.contactPersons.findIndex(((obj: any) => obj._id == this.editContactFormGroup.controls.contactPersonId.value));
-    this.product.contactPersons[contactPersonIndex].name = this.editContactFormGroup.controls.contactPerson.value
-    this.product.contactPersons[contactPersonIndex].type = this.editContactFormGroup.controls.contactType.value
-    this.product.contactPersons[contactPersonIndex].phone = this.editContactFormGroup.controls.contactPhone.value
-    this.product.contactPersons[contactPersonIndex].fax = this.editContactFormGroup.controls.contactFax.value
-    this.product.contactPersons[contactPersonIndex].email = this.editContactFormGroup.controls.contactEmail.value
+    let contactPersonIndex = this.profile.contactPersons.findIndex(((obj: any) => obj._id == this.editContactFormGroup.controls.contactPersonId.value));
+    this.profile.contactPersons[contactPersonIndex].name = this.editContactFormGroup.controls.contactPerson.value
+    this.profile.contactPersons[contactPersonIndex].type = this.editContactFormGroup.controls.contactType.value
+    this.profile.contactPersons[contactPersonIndex].phone = this.editContactFormGroup.controls.contactPhone.value
+    this.profile.contactPersons[contactPersonIndex].fax = this.editContactFormGroup.controls.contactFax.value
+    this.profile.contactPersons[contactPersonIndex].email = this.editContactFormGroup.controls.contactEmail.value
     this.editContactFormGroup.reset();
     this.update();
   }
 
   getSalesPerson(){
-    if(this.users && this.users.length > 0 && this.product){
+    if(this.users && this.users.length > 0 && this.profile){
       this.user = _.find(this.users, (user) => {
-        return user.id === this.product.userId;
+        return user.id === this.profile.userId;
       })
       if(this.user !== undefined)
         this.ref.detectChanges();
@@ -372,7 +373,7 @@ export class DetailComponent implements OnInit {
   }
 
   update(){
-    let allContactPersons = [...this.product.contactPersons];
+    let allContactPersons = [...this.profile.contactPersons];
     if(allContactPersons.length > 0)
       allContactPersons = allContactPersons.map(({_id, ...rest}) => {
         return rest;
@@ -388,7 +389,7 @@ export class DetailComponent implements OnInit {
       this.createContactFormGroup.reset();
     }
     if (this.editFormGroup.valid){
-      let product = {
+      let profile: any = {
         active: this.editFormGroup.controls.active.value,
         isBillTo: this.editFormGroup.controls.isBillTo.value,
         isBroker: this.editFormGroup.controls.isBroker.value,
@@ -417,11 +418,18 @@ export class DetailComponent implements OnInit {
         officeHours: this.editFormGroup.controls.officeHours.value,
         userId: this.editFormGroup.controls.userId.value,
       };
-      // console.log({...product});
+      if(
+        this.editFormGroup.controls.password.value !== '' &&
+        this.editFormGroup.controls.password.value !== undefined &&
+        this.editFormGroup.controls.password.value !== null
+      ){
+        profile['password'] = this.editFormGroup.controls.password.value
+      }
+      // console.log({...profile});
       // return false;
-      this.typesService.updateProfile(this.typeId, {...product})
+      this.typesService.updateProfile(this.typeId, {...profile})
         .pipe(shareReplay(), first())
-        .subscribe((product: any) => {
+        .subscribe((profile: any) => {
           this.fileReset();
           this.editFormGroup.reset();
           this.typesService.getProfile(this.typeId);
@@ -442,7 +450,7 @@ export class DetailComponent implements OnInit {
 
   ngOnDestroy(){
     this.routeSub.unsubscribe();
-    this.productSubscription.unsubscribe();
+    this.profileSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
   }
 
@@ -469,7 +477,7 @@ export class DetailComponent implements OnInit {
       cancelButtonColor: '#50CD89',
     }).then((result: any) => {
       if (result.value){
-        this.product.contactPersons.splice(this.product.contactPersons.findIndex(function(i: any){
+        this.profile.contactPersons.splice(this.profile.contactPersons.findIndex(function(i: any){
           return i._id === contactPerson._id;
         }), 1);
         this.update();
@@ -530,7 +538,7 @@ export class DetailComponent implements OnInit {
         contactPersonCSVRecord.phone = currentRecord[2].trim().replace(/["']/g, "");
         contactPersonCSVRecord.fax = currentRecord[3].trim().replace(/["']/g, "");
         contactPersonCSVRecord.email = currentRecord[4].trim().replace(/["']/g, "");
-        this.product.contactPersons.push(contactPersonCSVRecord);
+        this.profile.contactPersons.push(contactPersonCSVRecord);
       }
     }
   }

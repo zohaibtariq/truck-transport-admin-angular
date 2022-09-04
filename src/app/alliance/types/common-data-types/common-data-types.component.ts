@@ -21,10 +21,10 @@ export class CommonDataTypesComponent {
   createFormGroup: FormGroup;
   @Input() heading = '';
   @Input() type: any;
-  products: any[];
+  profiles: any[];
   users: any[];
   typeKey: string;
-  private productSubscription: Subscription;
+  private profileSubscription: Subscription;
   private usersSubscription: Subscription;
   title = 'ng-bootstrap-modal-demo';
   modalOptions:NgbModalOptions;
@@ -80,7 +80,7 @@ export class CommonDataTypesComponent {
   }
 
   ngOnDestroy(){
-    this.productSubscription.unsubscribe();
+    this.profileSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
   }
 
@@ -154,6 +154,8 @@ export class CommonDataTypesComponent {
         isForwarder: [false, Validators.compose([])],
         isTerminal: [false, Validators.compose([])],
         userId: ['', Validators.compose([Validators.required])],
+        email: ['', Validators.compose([])],
+        password: ['', Validators.compose([])],
       },
       {
         validator: ConfirmPasswordValidator.MatchPassword,
@@ -164,7 +166,7 @@ export class CommonDataTypesComponent {
   submit(){
     if (this.createFormGroup.valid){
       let active = this.createFormGroup.controls.active.value;
-      let product = {
+      let profile = {
         active: ((active === null || active === undefined || active === '' || active === false) ? false : true),
         isBillTo: this.createFormGroup.controls.isBillTo.value,
         isBroker: this.createFormGroup.controls.isBroker.value,
@@ -186,10 +188,12 @@ export class CommonDataTypesComponent {
           zip: this.createFormGroup.controls.locationZip.value,
         },
         userId: this.createFormGroup.controls.userId.value,
+        email: this.createFormGroup.controls.email.value,
+        password: this.createFormGroup.controls.password.value,
       };
-      this.typesService.storeProfile({...product})
+      this.typesService.storeProfile({...profile})
         .pipe(shareReplay(), first())
-        .subscribe((product: any) => {
+        .subscribe((profile: any) => {
           this.modalService.dismissAll();
           this.createFormGroup.reset();
           this.typesService.getAllProfiles(this.type, this.page);
@@ -201,20 +205,20 @@ export class CommonDataTypesComponent {
     this.countryService.countries$.subscribe((countries: any) => {
       this.countries = countries;
     })
-    this.subscribeProduct()
+    this.subscribeProfile()
     this.subscribeUsers()
   }
 
-  subscribeProduct(){
-    this.productSubscription = this.typesService.profiles$.subscribe((products: any) => {
-      this.products =  products.results
-      // console.log("products");
-      // console.log(this.products);
-      this.page = products.page;
-      this.limit = products.limit;
-      this.totalPages = products.totalPages;
+  subscribeProfile(){
+    this.profileSubscription = this.typesService.profiles$.subscribe((profiles: any) => {
+      this.profiles =  profiles.results
+      // console.log("profiles");
+      // console.log(this.profiles);
+      this.page = profiles.page;
+      this.limit = profiles.limit;
+      this.totalPages = profiles.totalPages;
       this.totalPagesArray = Array.from({length:this.totalPages},(v,k)=>k+1);
-      this.totalResults = products.totalResults;
+      this.totalResults = profiles.totalResults;
       this.reInitForm();
       this.ref.detectChanges();
     });

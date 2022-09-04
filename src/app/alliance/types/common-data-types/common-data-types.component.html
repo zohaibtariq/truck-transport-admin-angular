@@ -69,7 +69,7 @@
       &nbsp;&nbsp;&nbsp;
       <a href="javascript:void(0)" class="btn btn-sm btn-light-primary a-svg-hover-fill-color"
          routerLinkActive="active"
-         [routerLink]="'/types/'+pageSlug+'/import'">
+         [routerLink]="'/profiles/'+pageSlug+'/import'">
         <span class="svg-icon svg-icon-primary svg-icon-3">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="17px" viewBox="0 0 24 24" version="1.1">
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -90,7 +90,7 @@
     <!-- begin::Table container -->
     <div class="table-responsive">
       <!--<pre>{{type | json}}</pre>-->
-      <!--<pre>{{products[0] | json}}</pre>-->
+      <!--<pre>{{profiles[0] | json}}</pre>-->
       <!-- begin::Table -->
       <table class="table align-middle gs-0 gy-4">
         <!-- begin::Table head -->
@@ -106,7 +106,7 @@
         <!-- end::Table head -->
         <!-- begin::Table body -->
         <tbody>
-          <tr *ngFor="let product of products">
+          <tr *ngFor="let profile of profiles">
             <td>
               <div class="d-flex align-items-center">
                 <div class="symbol symbol-50px me-5" style="display: none">
@@ -120,20 +120,20 @@
                 </div>
                 <div class="d-flex justify-content-start flex-column">
                   <span class="text-muted fw-bold text-muted d-block fs-7 text-uppercase">
-                    {{product?.location?.id}}
+                    {{profile?.location?.id}}
                   </span>
                   <a
                     href="javascript:void(0)"
                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6  text-uppercase"
                   >
-                    {{product?.location?.name}}
+                    {{profile?.location?.name}}
                   </a>
                 </div>
               </div>
               <div>
-                <span *ngIf="product?.active;else inactiveBadge" class="badge badge-light-success">Active</span>&nbsp;&nbsp;&nbsp;<span *ngIf="product?.active" class="badge badge-light-success">{{product?.code}}</span>
+                <span *ngIf="profile?.active;else inactiveBadge" class="badge badge-light-success">Active</span>&nbsp;&nbsp;&nbsp;<span *ngIf="profile?.active" class="badge badge-light-success">{{profile?.code}}</span>
                 <ng-template #inactiveBadge>
-                  <span class="badge badge-light-danger">Inactive</span>&nbsp;&nbsp;&nbsp;<span class="badge badge-light-danger">{{product?.code}}</span>
+                  <span class="badge badge-light-danger">Inactive</span>&nbsp;&nbsp;&nbsp;<span class="badge badge-light-danger">{{profile?.code}}</span>
                 </ng-template>
               </div>
             </td>
@@ -142,11 +142,11 @@
                 href="javascript:void(0)"
                 class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
               >
-                <span class="text-capitalize">{{product?.location?.address1}}</span>
-                <span class="text-capitalize">{{((product?.location?.address1 && product?.location?.country && product?.location?.country !== undefined) ? ', '+product?.location?.country?.name:'')}}</span>
-                <span class="text-capitalize">{{(((product?.location?.address1 || product?.location?.country) && product?.location?.city && product?.location?.city !== undefined) ? ', '+product?.location?.city?.name:'')}}</span>
-                <span class="text-capitalize">{{(((product?.location?.address1 || product?.location?.country ||product?.location?.city) && product?.location?.state && product?.location?.state !== undefined) ? ', '+product?.location?.state?.name:'')}}</span>
-                <span class="text-uppercase">{{(((product?.location?.address1 || product?.location?.country || product?.location?.city|| product?.location?.state) && product?.location?.zip && product?.location?.zip !== undefined) ? ', '+product?.location?.zip:'')}}</span>
+                <span class="text-capitalize">{{profile?.location?.address1}}</span>
+                <span class="text-capitalize">{{((profile?.location?.address1 && profile?.location?.country && profile?.location?.country !== undefined) ? ', '+profile?.location?.country?.name:'')}}</span>
+                <span class="text-capitalize">{{(((profile?.location?.address1 || profile?.location?.country) && profile?.location?.city && profile?.location?.city !== undefined) ? ', '+profile?.location?.city?.name:'')}}</span>
+                <span class="text-capitalize">{{(((profile?.location?.address1 || profile?.location?.country ||profile?.location?.city) && profile?.location?.state && profile?.location?.state !== undefined) ? ', '+profile?.location?.state?.name:'')}}</span>
+                <span class="text-uppercase">{{(((profile?.location?.address1 || profile?.location?.country || profile?.location?.city|| profile?.location?.state) && profile?.location?.zip && profile?.location?.zip !== undefined) ? ', '+profile?.location?.zip:'')}}</span>
               </a>
               <span class="text-muted fw-bold text-muted d-block fs-7"
               ></span>
@@ -156,8 +156,8 @@
                 href="javascript:void(0)"
                 class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6 text-lowercase"
               >
-                {{product?.location?.phone}}
-                {{((product?.location?.phone && product?.location?.fax)?', '+product?.location?.fax:'')}}
+                {{profile?.location?.phone}}
+                {{((profile?.location?.phone && profile?.location?.fax)?', '+profile?.location?.fax:'')}}
               </a>
               <span class="text-muted fw-bold text-muted d-block fs-7"></span>
             </td>
@@ -166,7 +166,7 @@
                 href="javascript:void(0)"
                 class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6 text-lowercase"
               >
-                {{product?.email}}
+                {{profile?.email}}
               </a>
             </td>
             <td class="text-end">
@@ -176,7 +176,7 @@
                 btn btn-icon btn-bg-light btn-active-color-primary btn-sm
                 me-1
               "
-                routerLink="{{'/types/detail/'+product?.id+'/'+pageSlug}}"
+                routerLink="{{'/profiles/detail/'+profile?.id+'/'+pageSlug}}"
               >
               <span
                 [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'"
@@ -199,7 +199,7 @@
               <a
                 href="javascript:void(0)"
                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                (click)="deleteProfile(product)"
+                (click)="deleteProfile(profile)"
               >
             <span
               [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"
@@ -362,6 +362,24 @@
                   <option selected>Sales Person</option>
                   <option *ngFor="let user of users" value="{{user?.id}}">{{user?.name}}</option>
                 </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="email" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input formControlName="email" type="text" class="form-control" id="email">
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="password" class="col-sm-2 col-form-label">Password</label>
+              <div class="col-sm-10">
+                <input formControlName="password" type="password" class="form-control" id="password">
               </div>
             </div>
           </div>

@@ -13,7 +13,7 @@ const API_USERS_URL = `${environment.apiUrl}`;
 })
 export class TypesService {
 
-  profileRoutePath: String = 'products';
+  profileRoutePath: String = 'profiles';
   maxLimit = 1000;
   profiles$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   profile$: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
@@ -25,8 +25,8 @@ export class TypesService {
   getProfile(id:any): Subscription {
     return this.http.get<{}>(API_USERS_URL+this.profileRoutePath+'/'+id)
       .pipe(shareReplay(), first())
-      .subscribe((product: any | undefined) => {
-        this.profile$.next(product);
+      .subscribe((profile: any | undefined) => {
+        this.profile$.next(profile);
       });
   }
 
@@ -56,18 +56,18 @@ export class TypesService {
       });
   }
 
-  storeProfile(product: any): Observable<any> {
+  storeProfile(profile: any): Observable<any> {
     let url = API_USERS_URL+this.profileRoutePath+'/create';
-    return this.http.post<any[]>(url, {...product});
+    return this.http.post<any[]>(url, {...profile});
   }
 
-  updateProfile(productId: any, product: any): Observable<any> {
-    let url = API_USERS_URL+this.profileRoutePath+'/'+productId;
-    return this.http.post<any[]>(url, {...product});
+  updateProfile(profileId: any, profile: any): Observable<any> {
+    let url = API_USERS_URL+this.profileRoutePath+'/'+profileId;
+    return this.http.post<any[]>(url, {...profile});
   }
 
-  deleteProfile(productId: any): Observable<any> {
-    let url = API_USERS_URL+this.profileRoutePath+'/'+productId;
+  deleteProfile(profileId: any): Observable<any> {
+    let url = API_USERS_URL+this.profileRoutePath+'/'+profileId;
     return this.http.delete<any[]>(url, {});
   }
 

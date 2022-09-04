@@ -58,8 +58,8 @@ const routes: Routes = [
         path: ':type/import',
         component: TypeImportComponent,
       },
-      { path: '', redirectTo: 'customers', pathMatch: 'full' },
-      { path: '**', redirectTo: 'customers', pathMatch: 'full' },
+      { path: '', redirectTo: '/profiles/customers', pathMatch: 'full' },
+      { path: '**', redirectTo: '/profiles/customers', pathMatch: 'full' },
     ],
   },
 ];

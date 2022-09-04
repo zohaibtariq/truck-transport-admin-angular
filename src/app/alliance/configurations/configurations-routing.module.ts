@@ -17,8 +17,8 @@ const routes: Routes = [
         path: 'goods',
         component: GoodsComponent,
       },
-      { path: '', redirectTo: 'charges', pathMatch: 'full' },
-      { path: '**', redirectTo: 'charges', pathMatch: 'full' },
+      { path: '', redirectTo: '/configs/charges', pathMatch: 'full' },
+      { path: '**', redirectTo: '/configs/charges', pathMatch: 'full' },
     ],
   },
 ];

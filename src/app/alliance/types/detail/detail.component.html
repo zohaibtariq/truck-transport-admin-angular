@@ -7,7 +7,7 @@
   </div>
   <!-- end::Header -->
   <!-- begin::Body -->
-  <div *ngIf="product !== {}" class="card-body py-3">
+  <div *ngIf="profile !== {}" class="card-body py-3">
     <!-- begin::Header -->
     <div class="d-flex align-items-center mb-5">
       <!-- begin::User -->
@@ -15,19 +15,19 @@
         <!-- begin::Info -->
         <div class="d-flex flex-column subh-1">
           <a href="javascript:void(0)" class="text-gray-400 text-hover-primary fs-6 fw-bolder">
-            {{product?.code}}
+            {{profile?.code}}
           </a>
         </div>
         <div class="d-flex flex-row">
-          <span *ngIf="product?.active;else inactiveBadge" class="badge badge-light-success subh-tag-active">Active</span>
+          <span *ngIf="profile?.active;else inactiveBadge" class="badge badge-light-success subh-tag-active">Active</span>
           <ng-template #inactiveBadge>
             <span class="badge badge-light-danger subh-tag-inactive">Inactive</span>
           </ng-template>
-          <span class="text-gray-400 fw-bold subh-2">{{product?.location?.name}}</span>
+          <span class="text-gray-400 fw-bold subh-2">{{profile?.location?.name}}</span>
         </div>
         <div class="d-flex flex-row subh-1">
           <a href="javascript:void(0)" class="text-gray-400 text-hover-primary fs-6 fw-bolder">
-            {{product?.location?.id}}
+            {{profile?.location?.id}}
           </a>
         </div>
         <!-- end::Info -->
@@ -65,11 +65,11 @@
             <p class="d-flex flex-grow-1-custom">Address</p>
             <p class="d-flex flex-grow-1-custom">
               <span>
-                <span class="text-capitalize">{{product?.location?.address1}}</span>
-                <span class="text-capitalize">{{((product?.location?.address1 && product?.location?.country && product?.location?.country !== undefined) ? ', '+product?.location?.country?.name:'')}}</span>
-                <span class="text-capitalize">{{(((product?.location?.address1 || product?.location?.country) && product?.location?.city && product?.location?.city !== undefined) ? ', '+product?.location?.city?.name:'')}}</span>
-                <span class="text-capitalize">{{(((product?.location?.address1 || product?.location?.country ||product?.location?.city) && product?.location?.state && product?.location?.state !== undefined) ? ', '+product?.location?.state?.name:'')}}</span>
-                <span class="text-uppercase">{{(((product?.location?.address1 || product?.location?.country || product?.location?.city|| product?.location?.state) && product?.location?.zip && product?.location?.zip !== undefined) ? ', '+product?.location?.zip:'')}}</span>
+                <span class="text-capitalize">{{profile?.location?.address1}}</span>
+                <span class="text-capitalize">{{((profile?.location?.address1 && profile?.location?.country && profile?.location?.country !== undefined) ? ', '+profile?.location?.country?.name:'')}}</span>
+                <span class="text-capitalize">{{(((profile?.location?.address1 || profile?.location?.country) && profile?.location?.city && profile?.location?.city !== undefined) ? ', '+profile?.location?.city?.name:'')}}</span>
+                <span class="text-capitalize">{{(((profile?.location?.address1 || profile?.location?.country ||profile?.location?.city) && profile?.location?.state && profile?.location?.state !== undefined) ? ', '+profile?.location?.state?.name:'')}}</span>
+                <span class="text-uppercase">{{(((profile?.location?.address1 || profile?.location?.country || profile?.location?.city|| profile?.location?.state) && profile?.location?.zip && profile?.location?.zip !== undefined) ? ', '+profile?.location?.zip:'')}}</span>
               </span>
             </p>
           </div>
@@ -77,19 +77,19 @@
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1">
             <p class="d-flex flex-grow-1-custom">Phone</p>
-            <p class="d-flex flex-grow-1-custom">{{product?.location?.phone}}</p>
+            <p class="d-flex flex-grow-1-custom">{{profile?.location?.phone}}</p>
           </div>
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1">
             <p class="d-flex flex-grow-1-custom">Fax</p>
-            <p class="d-flex flex-grow-1-custom">{{product?.location?.fax}}</p>
+            <p class="d-flex flex-grow-1-custom">{{profile?.location?.fax}}</p>
           </div>
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1">
             <p class="d-flex flex-grow-1-custom">Email</p>
-            <p class="d-flex flex-grow-1-custom">{{product?.email}}</p>
+            <p class="d-flex flex-grow-1-custom">{{profile?.email}}</p>
           </div>
         </div>
         <div class="d-flex">
@@ -103,33 +103,33 @@
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1">
             <p class="d-flex flex-grow-1-custom">External ID</p>
-            <p class="d-flex flex-grow-1-custom text-uppercase">{{product?.location?.externalId}}</p>
+            <p class="d-flex flex-grow-1-custom text-uppercase">{{profile?.location?.externalId}}</p>
           </div>
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1">
             <p class="d-flex flex-grow-1-custom">MC ID</p>
-            <p class="d-flex flex-grow-1-custom text-uppercase">{{product?.mcId}}</p>
+            <p class="d-flex flex-grow-1-custom text-uppercase">{{profile?.mcId}}</p>
           </div>
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1">
             <p class="d-flex flex-grow-1-custom">EDI ID</p>
-            <p class="d-flex flex-grow-1-custom text-uppercase">{{product?.ediId}}</p>
+            <p class="d-flex flex-grow-1-custom text-uppercase">{{profile?.ediId}}</p>
           </div>
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1">
             <p class="d-flex flex-grow-1-custom">Office Hours</p>
-            <p class="d-flex flex-grow-1-custom">{{product?.officeHours}}</p>
+            <p class="d-flex flex-grow-1-custom">{{profile?.officeHours}}</p>
           </div>
         </div>
       </div>
       <div class="d-flex flex-column flex-grow-1 is-icons">
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1 align-items-end align-content-end">
-            <p class="d-flex flex-row" [ngClass]="((product?.isCustomer) ? 'icon-green-tick' : 'icon-red-cross')">
-              <i *ngIf="product?.isCustomer;else noGoToElse" class="bi bi-check fs-5"></i>
+            <p class="d-flex flex-row" [ngClass]="((profile?.isCustomer) ? 'icon-green-tick' : 'icon-red-cross')">
+              <i *ngIf="profile?.isCustomer;else noGoToElse" class="bi bi-check fs-5"></i>
               <ng-template #noGoToElse>
                 <i class="bi bi-x fs-5"></i>
               </ng-template>
@@ -139,8 +139,8 @@
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1 align-items-end align-content-end">
-            <p class="d-flex flex-row" [ngClass]="((product?.isBillTo) ? 'icon-green-tick' : 'icon-red-cross')">
-              <i *ngIf="product?.isBillTo;else noGoToElse" class="bi bi-check fs-5"></i>
+            <p class="d-flex flex-row" [ngClass]="((profile?.isBillTo) ? 'icon-green-tick' : 'icon-red-cross')">
+              <i *ngIf="profile?.isBillTo;else noGoToElse" class="bi bi-check fs-5"></i>
               <ng-template #noGoToElse>
                 <i class="bi bi-x fs-5"></i>
               </ng-template>
@@ -150,8 +150,8 @@
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1 align-items-end align-content-end">
-            <p class="d-flex flex-row" [ngClass]="((product?.isShipper) ? 'icon-green-tick' : 'icon-red-cross')">
-              <i *ngIf="product?.isShipper;else noGoToElse" class="bi bi-check fs-5"></i>
+            <p class="d-flex flex-row" [ngClass]="((profile?.isShipper) ? 'icon-green-tick' : 'icon-red-cross')">
+              <i *ngIf="profile?.isShipper;else noGoToElse" class="bi bi-check fs-5"></i>
               <ng-template #noGoToElse>
                 <i class="bi bi-x fs-5"></i>
               </ng-template>
@@ -161,8 +161,8 @@
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1 align-items-end align-content-end">
-            <p class="d-flex flex-row" [ngClass]="((product?.isConsignee) ? 'icon-green-tick' : 'icon-red-cross')">
-              <i *ngIf="product?.isConsignee;else noGoToElse" class="bi bi-check fs-5"></i>
+            <p class="d-flex flex-row" [ngClass]="((profile?.isConsignee) ? 'icon-green-tick' : 'icon-red-cross')">
+              <i *ngIf="profile?.isConsignee;else noGoToElse" class="bi bi-check fs-5"></i>
               <ng-template #noGoToElse>
                 <i class="bi bi-x fs-5"></i>
               </ng-template>
@@ -172,8 +172,8 @@
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1 align-items-end align-content-end">
-            <p class="d-flex flex-row" [ngClass]="((product?.isBroker) ? 'icon-green-tick' : 'icon-red-cross')">
-              <i *ngIf="product?.isBroker;else noGoToElse" class="bi bi-check fs-5"></i>
+            <p class="d-flex flex-row" [ngClass]="((profile?.isBroker) ? 'icon-green-tick' : 'icon-red-cross')">
+              <i *ngIf="profile?.isBroker;else noGoToElse" class="bi bi-check fs-5"></i>
               <ng-template #noGoToElse>
                 <i class="bi bi-x fs-5"></i>
               </ng-template>
@@ -183,8 +183,8 @@
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1 align-items-end align-content-end">
-            <p class="d-flex flex-row" [ngClass]="((product?.isForwarder) ? 'icon-green-tick' : 'icon-red-cross')">
-              <i *ngIf="product?.isForwarder;else noGoToElse" class="bi bi-check fs-5"></i>
+            <p class="d-flex flex-row" [ngClass]="((profile?.isForwarder) ? 'icon-green-tick' : 'icon-red-cross')">
+              <i *ngIf="profile?.isForwarder;else noGoToElse" class="bi bi-check fs-5"></i>
               <ng-template #noGoToElse>
                 <i class="bi bi-x fs-5"></i>
               </ng-template>
@@ -194,8 +194,8 @@
         </div>
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1 align-items-end align-content-end">
-            <p class="d-flex flex-row" [ngClass]="((product?.isTerminal) ? 'icon-green-tick' : 'icon-red-cross')">
-              <i *ngIf="product?.isTerminal;else noGoToElse" class="bi bi-check fs-5"></i>
+            <p class="d-flex flex-row" [ngClass]="((profile?.isTerminal) ? 'icon-green-tick' : 'icon-red-cross')">
+              <i *ngIf="profile?.isTerminal;else noGoToElse" class="bi bi-check fs-5"></i>
               <ng-template #noGoToElse>
                 <i class="bi bi-x fs-5"></i>
               </ng-template>
@@ -211,7 +211,7 @@
         <div class="d-flex">
           <div class="d-flex flex-row flex-grow-1">
             <p class="d-flex flex-grow-1-notes">Notes</p>
-            <p class="d-flex flex-grow-1-notes-details">{{product?.notes}}</p>
+            <p class="d-flex flex-grow-1-notes-details">{{profile?.notes}}</p>
           </div>
         </div>
       </div>
@@ -299,8 +299,8 @@
                 </thead>
                 <!-- end::Table head -->
                 <!-- begin::Table body -->
-                <tbody *ngIf="product?.contactPersons && product?.contactPersons.length > 0">
-                <tr *ngFor="let cp of product?.contactPersons">
+                <tbody *ngIf="profile?.contactPersons && profile?.contactPersons.length > 0">
+                <tr *ngFor="let cp of profile?.contactPersons">
                   <td>
                     <div class="d-flex align-items-center">
                       <div class="d-flex justify-content-start flex-column">
@@ -800,9 +800,55 @@
           </div>
           <div class="col">
             <div class="mb-3 row">
+              <label for="officeHours" class="col-sm-2 col-form-label">Office Hours</label>
+              <div class="col-sm-10">
+                <input formControlName="officeHours" type="text" class="form-control" id="officeHours">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="mcId" class="col-sm-2 col-form-label">MC ID</label>
+              <div class="col-sm-10">
+                <input formControlName="mcId" type="text" class="form-control" id="mcId">
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="ediId" class="col-sm-2 col-form-label">EDI ID</label>
+              <div class="col-sm-10">
+                <input formControlName="ediId" type="text" class="form-control" id="ediId">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col">
+            <div class="mb-3 row">
               <label for="email" class="col-sm-2 col-form-label">Email</label>
               <div class="col-sm-10">
                 <input formControlName="email" type="text" class="form-control" id="email">
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="password" class="col-sm-2 col-form-label">Password</label>
+              <div class="col-sm-10">
+                <input formControlName="password" type="password" class="form-control" id="password">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="notes" class="col-sm-1 col-form-label">Notes</label>
+              <div class="col-sm-11">
+                <textarea formControlName="notes" class="form-control" id="notes"></textarea>
               </div>
             </div>
           </div>
@@ -853,42 +899,6 @@
             </div>
           </div>
           <div class="col">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <div class="col">
-            <div class="mb-3 row">
-              <label for="mcId" class="col-sm-2 col-form-label">MC ID</label>
-              <div class="col-sm-10">
-                <input formControlName="mcId" type="text" class="form-control" id="mcId">
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="mb-3 row">
-              <label for="ediId" class="col-sm-2 col-form-label">EDI ID</label>
-              <div class="col-sm-10">
-                <input formControlName="ediId" type="text" class="form-control" id="ediId">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <div class="col">
-            <div class="mb-3 row">
-              <label for="officeHours" class="col-sm-2 col-form-label">Office Hours</label>
-              <div class="col-sm-10">
-                <input formControlName="officeHours" type="text" class="form-control" id="officeHours">
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="mb-3 row">
-              <label for="notes" class="col-sm-2 col-form-label">Notes</label>
-              <div class="col-sm-10">
-                <textarea formControlName="notes" class="form-control" id="notes"></textarea>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -107,8 +107,8 @@ export class DetailComponent implements OnInit {
   subscribeLoad(){
     this.loadSubscription = this.loadsService.load$.subscribe((load: any) => {
       this.load =  load
-      console.log("load");
-      console.log(load);
+      // console.log("load");
+      // console.log(load);
       this.editLoadFormGroup.patchValue({
         customer: load?.customer?.id,
         proCode: load?.proCode,

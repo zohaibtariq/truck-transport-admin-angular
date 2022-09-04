@@ -36,7 +36,7 @@ const Routing: Routes = [
   //     ),
   // },
   {
-    path: 'types',
+    path: 'profiles',
     loadChildren: () =>
       import('../alliance/types.module').then(
         (m) => m.TypesModule
@@ -78,7 +78,7 @@ const Routing: Routes = [
   {
     path: '',
     // redirectTo: '/dashboard',
-    redirectTo: '/types/customers',
+    redirectTo: '/profiles/customers',
     pathMatch: 'full',
   },
   {

@@ -22,8 +22,8 @@ const routes: Routes = [
         path: 'detail/:id',
         component: DriverDetailComponent,
       },
-      { path: '', redirectTo: 'drivers', pathMatch: 'full' },
-      { path: '**', redirectTo: 'drivers', pathMatch: 'full' },
+      { path: '', redirectTo: '/drivers/listing', pathMatch: 'full' },
+      { path: '**', redirectTo: '/drivers/listing', pathMatch: 'full' },
     ],
   },
 ];

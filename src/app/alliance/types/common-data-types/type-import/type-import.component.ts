@@ -128,7 +128,7 @@ export class TypeImportComponent implements OnInit {
         this.importUserSuccess = response.insertedCount+' '+ this.type.charAt(0).toUpperCase() + this.type.slice(1).replace('-', ' ') +' imported successfully.';
         this.ref.detectChanges();
         setTimeout(() => {
-          const routeToPath = '/types/'+this.type;
+          const routeToPath = '/profiles/'+this.type;
           this.router.navigate([routeToPath]);
         }, 1500)
       })
