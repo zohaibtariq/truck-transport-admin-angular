@@ -99,7 +99,7 @@
             <th class="ps-4 min-w-300px rounded-start">{{heading}}</th>
             <th class="min-w-300px">ADDRESS</th>
             <th class="min-w-200px">PHONE/FAX</th>
-            <th class="min-w-200px">EMAIL</th>
+            <th class="min-w-200px" *ngIf="type.isCustomer">EMAIL</th>
             <th class="min-w-200px text-end">ACTIONS&nbsp;&nbsp;&nbsp;&nbsp;</th>
           </tr>
         </thead>
@@ -161,7 +161,7 @@
               </a>
               <span class="text-muted fw-bold text-muted d-block fs-7"></span>
             </td>
-            <td>
+            <td *ngIf="type.isCustomer">
               <a
                 href="javascript:void(0)"
                 class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6 text-lowercase"
@@ -366,7 +366,7 @@
             </div>
           </div>
         </div>
-        <div class="mb-3 row">
+        <div class="mb-3 row" *ngIf="type.isCustomer">
           <div class="col">
             <div class="mb-3 row">
               <label for="email" class="col-sm-2 col-form-label">Email</label>
