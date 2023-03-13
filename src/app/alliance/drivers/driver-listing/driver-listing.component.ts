@@ -150,6 +150,7 @@ export class DriverListingComponent implements OnInit {
         dispatcher: ['', Validators.compose([Validators.required])],
         email: ['', Validators.compose([Validators.required])],
         password: ['', Validators.compose([Validators.required])],
+        cardNumber: ['', Validators.compose([])],
       }
     );
   }
@@ -184,6 +185,7 @@ export class DriverListingComponent implements OnInit {
         dispatcher: this.createDriverFormGroup.controls.dispatcher.value,
         email: this.createDriverFormGroup.controls.email.value,
         password: this.createDriverFormGroup.controls.password.value,
+        cardNumber: this.createDriverFormGroup.controls.cardNumber.value,
       };
       this.driversService.storeDriver({...driver})
         .pipe(shareReplay(), first())

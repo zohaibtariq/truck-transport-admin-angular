@@ -78,8 +78,8 @@ export class DetailComponent implements OnInit {
             callback(this.states)
         },
         error: (error) => {
-          console.log('PROFILE DETAIL ALL STATES ERROR');
-          console.log(error);
+          console.error('PROFILE DETAIL ALL STATES ERROR');
+          console.error(error);
         }
       })
   }
@@ -99,8 +99,8 @@ export class DetailComponent implements OnInit {
             callback(this.cities)
         },
         error: (error) => {
-          console.log('PROFILE DETAIL ALL CITIES ERROR');
-          console.log(error);
+          console.error('PROFILE DETAIL ALL CITIES ERROR');
+          console.error(error);
         }
       })
   }

@@ -15,6 +15,7 @@ export class LoadsService {
 
   loads$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   load$: BehaviorSubject<{}> = new BehaviorSubject<{}>({});
+  loadPayments$: BehaviorSubject<{}> = new BehaviorSubject<{}>([]);
 
   constructor(private http: HttpClient){ }
 
@@ -23,6 +24,14 @@ export class LoadsService {
       .pipe(shareReplay(), first())
       .subscribe((load: any | undefined) => {
         this.load$.next(load);
+      });
+  }
+
+  getLoadPayments(id:any): Subscription {
+    return this.http.get<{}>(`${API_USERS_URL}loads/${id}/payment/transactions`)
+      .pipe(shareReplay(), first())
+      .subscribe((loadPayments: any | undefined) => {
+        this.loadPayments$.next(loadPayments);
       });
   }
 
@@ -45,6 +54,11 @@ export class LoadsService {
 
   updateLoad(loadId: any, load: any): Observable<any> {
     let url = API_USERS_URL+'loads/'+loadId;
+    return this.http.post<any[]>(url, {...load});
+  }
+
+  loadPayment(loadId: any, load: any): Observable<any> {
+    let url = `${API_USERS_URL}loads/${loadId}/payment`;
     return this.http.post<any[]>(url, {...load});
   }
 

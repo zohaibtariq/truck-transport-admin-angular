@@ -648,6 +648,221 @@
           <!-- begin::Body -->
         </ng-template>
       </mat-tab>
+      <mat-tab *ngIf="load?.status && (load.status === 'active' || load.status === 'enroute' || load.status === 'completed')">
+        <ng-template mat-tab-label>
+          <span class="tab-header-style">
+            Payments
+          </span>
+        </ng-template>
+        <ng-template matTabContent>
+          <!-- begin::Body -->
+          <div class="card-body py-3 padding-zero">
+            <div class="row no-margin">
+              <div class="col-sm-9">
+                <!-- begin::Table container -->
+                <div class="table-responsive">
+                  <!-- begin::Table -->
+                  <table class="table align-middle gs-0 gy-4">
+                    <!-- begin::Table head -->
+                    <thead>
+                      <tr class="fw-bolder text-muted bg-light" style="vertical-align:middle;">
+                        <th class="ps-4 rounded-start text-uppercase">Amount</th>
+                        <th class="text-uppercase">Result</th>
+                        <th class="text-uppercase">Message</th>
+                        <!--
+                        <th class="text-uppercase">Before Payment Load Paid Amount</th>
+                        <th class="text-uppercase">After Payment Load Paid Amount</th>
+                        <th class="text-uppercase">Pending To be Paid Load Amount</th>
+                        -->
+                        <th class="text-end rounded-end" style="padding-right: 10px !important">
+                          <button
+                            class="btn btn-primary alliance-blue-button"
+                            type="button"
+                            data-kt-element="send"
+                            (click)="openLoadPaymentModal(loadPaymentModal)"
+                          >
+                            Add
+                          </button>
+                        </th>
+                      </tr>
+                    </thead>
+                    <!-- end::Table head -->
+                    <!-- begin::Table body -->
+                    <tbody *ngIf="loadPayments && loadPayments.length > 0">
+                      <tr *ngFor="let loadPayment of loadPayments">
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <div class="d-flex justify-content-start flex-column">
+                              {{loadPayment?.loadAmount}}
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="d-flex justify-content-start">
+                            <span
+                              [ngClass]="{
+                                'badge-light-success': loadPayment?.responseCode === '0',
+                                'badge-light-danger': loadPayment?.responseCode !== '0'
+                              }"
+                              class="badge fs-8 fw-bolder">{{(loadPayment?.responseCode === '0')?'PASS':'FAIL'}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="d-flex justify-content-start flex-column">
+                            {{loadPayment?.responseMessage}}
+                          </div>
+                        </td>
+                        <!--
+                        <td>
+                          <div class="d-flex justify-content-start flex-column">
+                            <a
+                              href="javascript:void(0)"
+                              class="text-dark text-hover-primary d-block mb-1 fs-6 text-lowercase"
+                            >
+                              {{loadPayment?.beforePaymentLoadPaidAmount}}
+                            </a>
+                          </div>
+                        </td>
+                        <td>
+                          {{loadPayment?.afterPaymentLoadPaidAmount}}
+                        </td>
+                        <td class="text-end">
+                          <a
+                            href="javascript:void(0)"
+                            class="
+                              btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                              me-1
+                            "
+                          >
+                            {{loadPayment?.pendingTobePaidLoadAmount}}
+                          </a>
+                        </td>
+                        -->
+                      </tr>
+                    </tbody>
+                    <!-- end::Table body -->
+                  </table>
+                  <!-- end::Table -->
+                </div>
+                <!-- end::Table container -->
+              </div>
+              <div class="col-sm-3 summary">
+                <form [formGroup]="summaryFormGroup">
+                  <div class="row mb-5">
+                    <div class="col-sm-10">
+                      <h4 class="">SUMMARY</h4>
+                    </div>
+                    <div class="col-sm-2 text-end">
+                      <i  (click)="summaryEditClicked()" class="fa fa-edit fa-2 summary-edit" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <div class="col-sm-8 text-start">
+                      <label for="distanceMiles" class="col-form-label">Distance (Miles)</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <input *ngIf="summaryEdit" formControlName="distanceMiles" type="number" class="form-control" id="distanceMiles" (blur)="updateSummary()" (change)="updateSummary()">
+                      <label *ngIf="!summaryEdit" for="ratePerMile" class="col-form-label">{{parseFloat(distanceMiles).toFixed(2)}}</label>
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <div class="col-sm-8 text-start">
+                      <label for="ratePerMile" class="col-form-label">Rate (Per Mile)</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <input *ngIf="summaryEdit" formControlName="ratePerMile" type="number" class="form-control" id="ratePerMile" (blur)="updateSummary()" (change)="updateSummary()">
+                      <label *ngIf="!summaryEdit" for="ratePerMile" class="col-form-label">{{parseFloat(ratePerMile).toFixed(2)}}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-8 text-start">
+                      <label class="col-form-label">Sub Total</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <label class="col-form-label">{{parseFloat(parseFloat(distanceMiles) * parseFloat(ratePerMile)).toFixed(2)}}</label>
+                    </div>
+                  </div>
+                  <div class="separator border-gray-200 mb-5"></div>
+                  <div class="row">
+                    <div class="col-sm-8 text-start">
+                      <label class="col-form-label">Additional Charges</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <label class="col-form-label">{{additionalCharges}}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-8 text-start">
+                      <label class="col-form-label">Total</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <label class="col-form-label">{{parseFloat(((parseFloat(distanceMiles) * parseFloat(ratePerMile)) + parseFloat(additionalCharges))).toFixed(2)}}</label>
+                    </div>
+                  </div>
+                  <div class="row mb-5 mt-5">
+                    <div class="col-sm-10">
+                      <h4 class="">DRIVER PAYMENT</h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-8 text-start">
+                      <label class="col-form-label">Rate per Mile</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <label class="col-form-label">{{parseFloat(driverRatePerMile).toFixed(2)}}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-8 text-start">
+                      <label class="col-form-label">Distance Payment</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <label class="col-form-label">{{parseFloat(parseFloat(distanceMiles) * parseFloat(driverRatePerMile)).toFixed(2)}}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-8 text-start">
+                      <label class="col-form-label">Additional Charges</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <label class="col-form-label">{{driverAdditionalCharges}}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-8 text-start">
+                      <label class="col-form-label">Total Payable</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+                      <label class="col-form-label">{{parseFloat(parseFloat(driverAdditionalCharges)+(parseFloat(distanceMiles) * parseFloat(driverRatePerMile))).toFixed(2)}}</label>
+                    </div>
+                  </div>
+                  <div class="row mb-1">
+                    <div class="col-sm-8 text-start">
+                      <label class="col-form-label">Paid Amount</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+<!--                      <input *ngIf="summaryEdit" formControlName="paidAmount" type="number" class="form-control" id="paidAmount" (blur)="updateSummary()" (change)="updateSummary()" min="0" [max]="parseFloat(driverAdditionalCharges)+(parseFloat(distanceMiles) * parseFloat(ratePerMile))">
+                      <label *ngIf="!summaryEdit" for="paidAmount" class="col-form-label">{{paidAmount}}</label>-->
+                      <label class="col-form-label">{{parseFloat(paidAmount).toFixed(2)}}</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-8 text-start">
+                      <label class="col-form-label">Balance Amount</label>
+                    </div>
+                    <div class="col-sm-4 text-end">
+<!--                      <input *ngIf="summaryEdit" formControlName="balanceAmount" type="number" class="form-control" id="balanceAmount" (blur)="updateSummary()" (change)="updateSummary()" min="0" [max]="parseFloat(driverAdditionalCharges)+(parseFloat(distanceMiles) * parseFloat(ratePerMile))">
+                      <label *ngIf="!summaryEdit" for="balanceAmount" class="col-form-label">{{balanceAmount}}</label>-->
+                      <label class="col-form-label">{{parseFloat(balanceAmount).toFixed(2)}}</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- begin::Body -->
+        </ng-template>
+      </mat-tab>
     </mat-tab-group>
   </div>
   <!-- end::Body -->
@@ -1285,6 +1500,35 @@
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark btn btn-light" (click)="modal.close('Save click')">Cancel</button>
       <button type="submit" class="btn btn-outline-dark btn btn-primary" [disabled]="createChargesFormGroup.invalid">Add</button>
+    </div>
+  </form>
+</ng-template>
+<ng-template #loadPaymentModal let-modal>
+  <form
+    [formGroup]="loadPaymentFormGroup"
+    (ngSubmit)="loadPayment()"
+  >
+    <div class="modal-header">
+      <h4 class="modal-title" id="load-payment">Load > Payment</h4>
+      <i class="bi bi-x fs-5 close" aria-label="Close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></i>
+    </div>
+    <div class="modal-body">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="LoadAmount" class="col-sm-2 col-form-label">Load Amount*</label>
+              <div class="col-sm-10">
+                <input formControlName="loadAmount" type="number" class="form-control" id="LoadAmount">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark btn btn-light" (click)="modal.close('Save click')">Cancel</button>
+      <button type="submit" class="btn btn-outline-dark btn btn-primary" [disabled]="loadPaymentFormGroup.invalid || loadPaymentIsInProgress">{{loadPaymentIsInProgress ? 'Please wait...' : 'Add'}}</button>
     </div>
   </form>
 </ng-template>

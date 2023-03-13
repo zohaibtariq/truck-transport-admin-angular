@@ -149,6 +149,7 @@ export class DriverDetailComponent implements OnInit {
         external_id: driver?.external_id,
         dispatcher: driver?.dispatcher,
         email: driver?.email,
+        cardNumber: driver?.cardNumber,
       });
       this.equipmentExperienceEndorsementsFormGroup.patchValue({
         flatbed: driver?.equipmentExperienceEndorsements?.flatbed,
@@ -306,6 +307,7 @@ export class DriverDetailComponent implements OnInit {
         dispatcher: ['', Validators.compose([Validators.required])],
         email: ['', Validators.compose([])],
         password: ['', Validators.compose([])],
+        cardNumber: ['', Validators.compose([])],
       }
     );
     this.createCertificationFormGroup = this.fb.group(
@@ -600,6 +602,7 @@ export class DriverDetailComponent implements OnInit {
         external_id: this.editDriverFormGroup.controls.external_id.value,
         dispatcher: this.editDriverFormGroup.controls.dispatcher.value,
         email: this.editDriverFormGroup.controls.email.value,
+        cardNumber: this.editDriverFormGroup.controls.cardNumber.value,
         image: this.driver.image,
         certifications: allCertifications,
         expirationLogSettings: this.driver.expirationLogSettings,

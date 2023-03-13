@@ -66,18 +66,18 @@ export class ForgotPasswordComponent implements OnInit {
         next: (result: any) => {
           this.errorState = ErrorStates.NoError;
           this.authService.updateIsLoadingSubject(false);
-          console.log('forgotPasswordSubscriber : RESULT')
-          console.log(result)
+          // console.log('forgotPasswordSubscriber : RESULT')
+          // console.log(result)
         },
         error: (err: any) => {
           this.authService.updateIsLoadingSubject(false);
           this.errorState = ErrorStates.HasError;
-          console.log('forgotPasswordSubscriber : ERROR')
-          console.log(err)
+          // console.log('forgotPasswordSubscriber : ERROR')
+          // console.log(err)
         },
         complete: () => {
           this.authService.updateIsLoadingSubject(false);
-          console.log('COMPLETE')
+          // console.log('COMPLETE')
         }
       })
     this.unsubscribe.push(forgotPasswordSubscriber);

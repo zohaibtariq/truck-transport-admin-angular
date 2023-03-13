@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import {TitleCasePipe} from "@angular/common";
 import {GoodsService} from "../../configurations/goods/goods.service";
 import {ChargesService} from "../../configurations/charges/charges.service";
+import {ToastrService} from 'ngx-toastr';
 
 const MAX_LIMIT = `${environment.maxLimit}`;
 
@@ -29,6 +30,7 @@ export class DetailComponent implements OnInit {
   loadAssignedStatusFormGroup: FormGroup;
   inviteDriverFormGroup: FormGroup;
   createChargesFormGroup: FormGroup;
+  loadPaymentFormGroup: FormGroup;
   editChargesFormGroup: FormGroup;
   summaryFormGroup: FormGroup;
   apiServerPath: String = environment.apiServerPath;
@@ -36,9 +38,11 @@ export class DetailComponent implements OnInit {
   pageSlug: any = 'Loads';
   loadId: any;
   load: any;
+  loadPayments: any;
   title = 'ng-bootstrap-modal-demo';
   modalOptions:NgbModalOptions;
   inviteDriverModalOptions:NgbModalOptions;
+  loadPaymentModalOptions:NgbModalOptions;
   ngbModalRef: NgbModalRef;
   customers: any[];
   drivers: any[];
@@ -63,6 +67,7 @@ export class DetailComponent implements OnInit {
   private loadSubscription: Subscription;
   inviteDriverPopupHeading: String;
   isDriverInvite: boolean = false;
+  loadPaymentIsInProgress: boolean = false;
   isInterestedDriverInvited: boolean = false;
   maxLimit = MAX_LIMIT;
 
@@ -77,6 +82,7 @@ export class DetailComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private modalService: NgbModal,
     private fb: FormBuilder,
+    private toaster: ToastrService,
   ){
     this.modalOptions = {
       backdrop:'static',
@@ -84,6 +90,11 @@ export class DetailComponent implements OnInit {
       size:'xl'
     }
     this.inviteDriverModalOptions = {
+      backdrop:'static',
+      backdropClass:'customBackdrop',
+      size:'lg'
+    }
+    this.loadPaymentModalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
       size:'lg'
@@ -102,6 +113,7 @@ export class DetailComponent implements OnInit {
     this.subscribeGoods()
     this.subscribeCharges()
     this.subscribeOriginShippers()
+    this.subscribeLoadPayments()
   }
 
   subscribeLoad(){
@@ -151,6 +163,15 @@ export class DetailComponent implements OnInit {
       this.loadId = params['id'];
       // this.loadId = params['id'];
       this.loadsService.getLoad(this.loadId);
+      this.loadsService.getLoadPayments(this.loadId);
+    });
+  }
+
+  subscribeLoadPayments(){
+    this.loadSubscription = this.loadsService.loadPayments$.subscribe((loadPayments: any) => {
+      this.loadPayments =  loadPayments;
+      this.ref.detectChanges();
+      this.modalService.dismissAll();
     });
   }
 
@@ -293,7 +314,11 @@ export class DetailComponent implements OnInit {
         billableToCustomer: [false,Validators.compose([])],
       }
     );
-
+    this.loadPaymentFormGroup = this.fb.group(
+      {
+        loadAmount: ['', Validators.compose([Validators.required])],
+      }
+    );
     this.editChargesFormGroup = this.fb.group(
       {
         chargesId: ['',Validators.compose([Validators.required])],
@@ -305,7 +330,6 @@ export class DetailComponent implements OnInit {
         billableToCustomer: [false,Validators.compose([])],
       }
     );
-
     this.summaryFormGroup = this.fb.group(
       {
         distanceMiles: ['',Validators.compose([Validators.required])],
@@ -482,6 +506,30 @@ export class DetailComponent implements OnInit {
           this.editGoodsFormGroup.reset();
           this.createChargesFormGroup.reset();
           // this.loadAssignedStatusFormGroup.reset();
+          this.loadsService.getLoad(this.loadId);
+        });
+    }
+  }
+
+  loadPayment(){
+    if (this.loadPaymentFormGroup.valid){
+      this.loadPaymentIsInProgress = true;
+      this.loadsService.loadPayment(this.loadId, {
+        loadAmount: this.loadPaymentFormGroup.controls.loadAmount.value
+      })
+        .pipe(shareReplay(), first())
+        .subscribe((loadPaymentResponse: any) => {
+          this.loadPaymentIsInProgress = false;
+          // console.log('loadPaymentResponse');
+          // console.log(loadPaymentResponse);
+          if(loadPaymentResponse?.responseCode === '0'){
+            this.modalService.dismissAll();
+            this.loadPaymentFormGroup.reset();
+            this.toaster.success(loadPaymentResponse?.responseMessage, 'SUCCESS');
+          }
+          else
+            this.toaster.error(loadPaymentResponse?.responseMessage, 'ERROR');
+          this.loadsService.getLoadPayments(this.loadId);
           this.loadsService.getLoad(this.loadId);
         });
     }
@@ -715,6 +763,13 @@ export class DetailComponent implements OnInit {
     this.modalService.open(content, this.modalOptions).result.then((result) => {
     }, (reason) => {
     });
+  }
+
+  openLoadPaymentModal(content: any){
+    this.modalService.open(content, this.loadPaymentModalOptions).result.then(
+      (result) => {
+      }, (reason) => {
+      });
   }
 
   interestedDriverInvited(interestedDriver: any){
