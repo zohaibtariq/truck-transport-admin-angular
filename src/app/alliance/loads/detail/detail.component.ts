@@ -845,6 +845,31 @@ export class DetailComponent implements OnInit {
     });
   }
 
+  changeCharge(charge: any/*, chargeType: any*/){
+    let chargeId = charge.target.value
+    let rate = 0;
+    this.charges.forEach(function(charge){
+      if(charge.id === chargeId){
+        rate = charge.rate;
+      }
+    })
+    if(/*chargeType === 'create' &&*/ this.createChargesFormGroup.controls.rate.value === '' || this.createChargesFormGroup.controls.rate.value === null){
+      this.createChargesFormGroup.patchValue({
+        rate: rate
+      });
+    } 
+    // console.log(this.createChargesFormGroup.controls.rate.value)
+    // else if (chargeType === 'edit' && this.editChargesFormGroup.controls.rate.value === ''){
+    //   this.editChargesFormGroup.patchValue({
+    //     rate: rate
+    //   });
+    // }
+  }
+
+  closeCharge(){
+    this.createChargesFormGroup.reset();
+  }
+
   checkRatePerMileOfInvitedDriver(ratePerMile: any){
     // console.log('checkRatePerMileOfInvitedDriver');
     // console.log(ratePerMile);

@@ -56,6 +56,7 @@ export class ChargesComponent implements OnInit {
     this.createChargeFormGroup = this.fb.group(
       {
         name: ['', Validators.compose([Validators.required])],
+        rate: ['', Validators.compose([])],
         // active: [false, Validators.compose([])],
       }
     );
@@ -63,6 +64,7 @@ export class ChargesComponent implements OnInit {
       {
         chargeId: ['', Validators.compose([Validators.required])],
         name: ['', Validators.compose([Validators.required])],
+        rate: ['', Validators.compose([])],
         // active: [false, Validators.compose([])],
       }
     );
@@ -73,6 +75,7 @@ export class ChargesComponent implements OnInit {
     if (this.createChargeFormGroup.valid){
       let charge = {
         name: this.createChargeFormGroup.controls.name.value,
+        rate: this.createChargeFormGroup.controls.rate.value,
         // active: this.createChargeFormGroup.controls.active.value === true,
       };
       this.chargesService.storeCharge({...charge})
@@ -100,6 +103,7 @@ export class ChargesComponent implements OnInit {
     if (this.editChargeFormGroup.valid){
       let charge = {
         name: this.editChargeFormGroup.controls.name.value,
+        rate: this.editChargeFormGroup.controls.rate.value,
         // active: this.editChargeFormGroup.controls.active.value === true,
       };
       this.callUpdateService(this.editChargeFormGroup.controls.chargeId.value, {...charge});
@@ -189,6 +193,7 @@ export class ChargesComponent implements OnInit {
     this.editChargeFormGroup.patchValue({
       chargeId: charge?.id,
       name: charge?.name,
+      rate: charge?.rate,
       // active: charge?.active
     });
   }
