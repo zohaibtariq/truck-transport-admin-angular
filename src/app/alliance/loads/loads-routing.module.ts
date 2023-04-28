@@ -10,6 +10,7 @@ import {CancelledComponent} from "./cancelled/cancelled.component";
 import {AllComponent} from "./all/all.component";
 import {DetailComponent} from "./detail/detail.component";
 import {TenderedComponent} from "./tendered/tendered.component";
+import {InvitedComponent} from "./invited/invited.component";
 
 const routes: Routes = [
   {
@@ -25,11 +26,15 @@ const routes: Routes = [
         component: AssignedComponent,
       },
       {
+        path: 'invited',
+        component: InvitedComponent,
+      },
+      {
         path: 'tendered',
         component: TenderedComponent,
       },
       {
-        path: 'active',
+        path: 'multiple',
         component: ActiveComponent,
       },
       {

@@ -342,3 +342,13 @@ ul.driver-assigned-status{
     }
   }
 }
+.both-center{
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  vertical-align: middle;
+  text-align: left;
+}
+.row.no-margin.no-padding {
+  width: 100%;
+}

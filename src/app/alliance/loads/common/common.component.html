@@ -48,7 +48,16 @@
             <!--<pre>{{load | json}}</pre>-->
             <div class="d-flex align-items-center">
               <div class="d-flex justify-content-start flex-column">
-                <span class="load-blue-color text-uppercase font-weight-bold">{{load?.code}}</span>
+                <a
+                  href="javascript:void(0)"
+                  class="
+                   btn-icon btn-bg-light btn-active-color-primary
+                    me-1
+                  "
+                  routerLink="{{'/loads/'+pageSlug+'/'+load?.id}}"
+                >
+                  <span class="load-blue-color text-uppercase font-weight-bold">{{load?.code}}</span>
+                </a>                
                 <span class="load-black-color text-capitalize">Procode: {{load?.proCode}}</span>
 <!-- <span class="badge badge-light-success text-uppercase">Procode: {{load?.proCode}}</span>-->
               </div>
@@ -71,7 +80,16 @@
               <div class="d-flex justify-content-start flex-column">
                 <span class="load-black-color">{{beautifyAddress(load?.origin)}}</span>
                 <span class="load-black-color">{{beautifyAddress(load?.destination)}}</span>
-                <span class="load-blue-color">View Route</span>
+                <a
+                  href="javascript:void(0)"
+                  class="
+                   btn-icon btn-bg-light btn-active-color-primary
+                    me-1
+                  "
+                  routerLink="{{'/loads/'+pageSlug+'/'+load?.id}}"
+                >
+                  <span class="load-blue-color">View Route</span>
+                </a>
               </div>
             </div>
             <!--{{load?.shipperRef}}-->
@@ -79,7 +97,7 @@
           <td>
             <div class="d-flex align-items-center">
               <div class="d-flex justify-content-start flex-column">
-                <span class="badge badge-light-success text-uppercase">{{load?.status}}</span>
+                <span class="badge badge-light-success text-uppercase">{{(load?.status === 'assigned' ? 'invited' : ((load?.status === 'active') ? 'assigned' : load?.status))}}</span>
               </div>
               <div *ngIf="load?.status === 'tender'" class="d-flex justify-content-start flex-column">
                 <ng-container>&nbsp;&nbsp;</ng-container>
@@ -192,9 +210,11 @@
           </div>
           <div class="col">
             <div class="mb-3 row">
-              <label for="bolHash" class="col-sm-4 col-form-label">BOL #*</label>
+              <label for="bolHash" class="col-sm-4 col-form-label">
+                BOL #
+              </label>
               <div class="col-sm-8">
-                <input formControlName="bolHash" type="text" class="form-control" id="bolHash">
+                <input formControlName="bolHash" type="text" class="form-control" id="bolHash" readonly>
               </div>
             </div>
           </div>
@@ -202,7 +222,7 @@
         <div class="row">
           <div class="col">
             <div class="mb-3 row">
-              <label for="Code" class="col-sm-4 col-form-label">Procode*</label>
+              <label for="Code" class="col-sm-4 col-form-label">Procode</label>
               <div class="col-sm-8">
                 <input formControlName="proCode" type="text" class="form-control" id="Code">
               </div>
@@ -210,7 +230,7 @@
           </div>
           <div class="col">
             <div class="mb-3 row">
-              <label for="poHash" class="col-sm-4 col-form-label">PO #*</label>
+              <label for="poHash" class="col-sm-4 col-form-label">PO #</label>
               <div class="col-sm-8">
                 <input formControlName="poHash" type="text" class="form-control" id="poHash">
               </div>
@@ -220,7 +240,7 @@
         <div class="row">
           <div class="col">
             <div class="mb-3 row">
-              <label for="shipperRef" class="col-sm-4 col-form-label">Shipper Ref*</label>
+              <label for="shipperRef" class="col-sm-4 col-form-label">Shipper Ref</label>
               <div class="col-sm-8">
                 <input formControlName="shipperRef" type="text" class="form-control" id="shipperRef">
               </div>
@@ -231,7 +251,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" id="origin-destination">
           <div class="col">
             <!--<div class="mb-3 row grey-box">
               <label for="origin" class="col-sm-12 col-form-label">Origin*</label>

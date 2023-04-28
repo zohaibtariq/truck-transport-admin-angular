@@ -8,11 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class ActiveComponent implements OnInit {
 
   heading = 'Active';
-  status = 'active';
+  status = 'pending,tender,active,assigned,enroute';
 
   constructor(){ }
 
   ngOnInit(): void {
+    //
   }
 
 }

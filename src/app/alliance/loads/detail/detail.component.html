@@ -288,13 +288,13 @@
                 <!-- begin::Table head -->
                 <thead>
                   <tr class="fw-bolder text-muted bg-light">
-                    <th class="ps-4 min-w-300px rounded-start text-uppercase">good</th>
-                    <th class="min-w-125px text-uppercase">load</th>
-                    <th class="min-w-125px text-uppercase">weight</th>
-                    <th class="min-w-200px text-uppercase">pallets</th>
-                    <th class="min-w-150px text-uppercase">fr class</th>
-                    <th class="min-w-150px text-uppercase">value</th>
-                    <th class="min-w-200px text-end rounded-end">
+                    <th class="ps-4 min-w-300px rounded-start text-uppercase both-center">good</th>
+                    <th class="min-w-125px text-uppercase both-center">load</th>
+                    <th class="min-w-125px text-uppercase both-center">weight</th>
+                    <th class="min-w-150px text-uppercase both-center">pallets</th>
+                    <th class="min-w-150px text-uppercase both-center">fr class</th>
+                    <th class="min-w-150px text-uppercase both-center">value</th>
+                    <th class="min-w-150px rounded-end">
                       <button
                         class="btn btn-primary alliance-blue-button"
                         type="button"
@@ -319,6 +319,7 @@
                           >
                             <span>{{good?.make}}, {{good?.model}}, {{good?.good?.name}}</span>
                             <span>{{good?.year}}</span>
+                            <span>{{good?.vin}}</span>
                             <span>{{good?.notes}}</span>
                           </a>
                         </div>
@@ -977,7 +978,7 @@
             <div class="mb-3 row">
               <label for="bolHash" class="col-sm-4 col-form-label">BOL #*</label>
               <div class="col-sm-8">
-                <input formControlName="bolHash" type="text" class="form-control" id="bolHash">
+                <input formControlName="bolHash" type="text" class="form-control" id="bolHash" readonly>
               </div>
             </div>
           </div>
@@ -993,7 +994,7 @@
           </div>
           <div class="col">
             <div class="mb-3 row">
-              <label for="poHash" class="col-sm-4 col-form-label">PO #*</label>
+              <label for="poHash" class="col-sm-4 col-form-label">PO #</label>
               <div class="col-sm-8">
                 <input formControlName="poHash" type="text" class="form-control" id="poHash">
               </div>
@@ -1140,9 +1141,30 @@
           </div>
           <div class="col">
             <div class="mb-3 row">
-              <label for="Value" class="col-sm-2 col-form-label">Value*</label>
+              <label for="vin" class="col-sm-2 col-form-label">Vin</label>
+              <div class="col-sm-10">
+                <input formControlName="vin" type="text" class="form-control" id="vin">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="Value" class="col-sm-2 col-form-label">Value</label>
               <div class="col-sm-10">
                 <input formControlName="value" type="number" class="form-control" id="Value">
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="goods" class="col-sm-2 col-form-label">Goods*</label>
+              <div class="col-sm-10">
+                <select formControlName="good" id="goods" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                  <option selected value="">Select Good</option>
+                  <option *ngFor="let good of goods" value="{{good?.id}}" class="text-capitalize">{{good?.name}}</option>
+                </select>
               </div>
             </div>
           </div>
@@ -1153,7 +1175,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="Quantity" class="col-sm-2 col-form-label">Quantity*</label>
+                  <label for="Quantity" class="col-sm-2 col-form-label">Quantity</label>
                   <div class="col-sm-10">
                     <input formControlName="quantity" type="number" class="form-control" id="Quantity">
                   </div>
@@ -1163,7 +1185,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="Pieces" class="col-sm-2 col-form-label">Pieces*</label>
+                  <label for="Pieces" class="col-sm-2 col-form-label">Pieces</label>
                   <div class="col-sm-10">
                     <input formControlName="pieces" type="number" class="form-control" id="Pieces">
                   </div>
@@ -1173,7 +1195,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="userQuantity" class="col-sm-2 col-form-label">User Quantity*</label>
+                  <label for="userQuantity" class="col-sm-2 col-form-label">User Quantity</label>
                   <div class="col-sm-10">
                     <input formControlName="userQuantity" type="number" class="form-control" id="userQuantity">
                   </div>
@@ -1186,7 +1208,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="Weight" class="col-sm-2 col-form-label">Weight*</label>
+                  <label for="Weight" class="col-sm-2 col-form-label">Weight</label>
                   <div class="col-sm-10">
                     <input formControlName="weight" type="number" class="form-control" id="Weight">
                   </div>
@@ -1196,7 +1218,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="Tonnage" class="col-sm-2 col-form-label">Tonnage*</label>
+                  <label for="Tonnage" class="col-sm-2 col-form-label">Tonnage</label>
                   <div class="col-sm-10">
                     <input formControlName="tonnage" type="number" class="form-control" id="Tonnage">
                   </div>
@@ -1206,7 +1228,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="GrWeight" class="col-sm-2 col-form-label">Gr. Weight*</label>
+                  <label for="GrWeight" class="col-sm-2 col-form-label">Gr. Weight</label>
                   <div class="col-sm-10">
                     <input formControlName="grWeight" type="number" class="form-control" id="GrWeight">
                   </div>
@@ -1218,7 +1240,7 @@
         <div class="row">
           <div class="col">
             <div class="mb-3 row">
-              <label for="Palletes" class="col-sm-2 col-form-label">Palletes*</label>
+              <label for="Palletes" class="col-sm-2 col-form-label">Palletes</label>
               <div class="col-sm-10">
                 <input formControlName="palletes" type="number" class="form-control" id="Palletes">
               </div>
@@ -1226,32 +1248,24 @@
           </div>
           <div class="col">
             <div class="mb-3 row">
-              <label for="FrClass" class="col-sm-2 col-form-label">Fr. Class*</label>
+              <label for="FrClass" class="col-sm-2 col-form-label">Fr. Class</label>
               <div class="col-sm-10">
                 <input formControlName="frClass" type="number" class="form-control" id="FrClass">
               </div>
             </div>
           </div>
         </div>
+        <!-- <hr> -->
         <div class="row">
           <div class="col">
             <div class="mb-3 row">
-              <label for="loadNotes" class="col-sm-12 col-form-label">Notes*</label>
+              <label for="loadNotes" class="col-sm-12 col-form-label">Notes</label>
               <div class="col-sm-12">
                 <textarea formControlName="notes" type="text" class="form-control" id="loadNotes"></textarea>
               </div>
             </div>
           </div>
           <div class="col">
-            <div class="mb-3 row">
-              <label for="goods" class="col-sm-12 col-form-label">Goods*</label>
-              <div class="col-sm-12">
-                <select formControlName="good" id="goods" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                  <option selected value="">Select Good</option>
-                  <option *ngFor="let good of goods" value="{{good?.id}}" class="text-capitalize">{{good?.name}}</option>
-                </select>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1303,9 +1317,30 @@
           </div>
           <div class="col">
             <div class="mb-3 row">
-              <label for="EditValue" class="col-sm-2 col-form-label">Value*</label>
+              <label for="vin" class="col-sm-2 col-form-label">Vin</label>
+              <div class="col-sm-10">
+                <input formControlName="vin" type="text" class="form-control" id="vin">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="EditValue" class="col-sm-2 col-form-label">Value</label>
               <div class="col-sm-10">
                 <input formControlName="value" type="number" class="form-control" id="EditValue">
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3 row">
+              <label for="editGood" class="col-sm-2 col-form-label">Goods*</label>
+              <div class="col-sm-10">
+                <select formControlName="good" id="editGood" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                  <option selected value="">Select Good</option>
+                  <option *ngFor="let good of goods" value="{{good?.id}}" class="text-capitalize">{{good?.name}}</option>
+                </select>
               </div>
             </div>
           </div>
@@ -1316,7 +1351,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="EditQuantity" class="col-sm-2 col-form-label">Quantity*</label>
+                  <label for="EditQuantity" class="col-sm-2 col-form-label">Quantity</label>
                   <div class="col-sm-10">
                     <input formControlName="quantity" type="number" class="form-control" id="EditQuantity">
                   </div>
@@ -1326,7 +1361,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="EditPieces" class="col-sm-2 col-form-label">Pieces*</label>
+                  <label for="EditPieces" class="col-sm-2 col-form-label">Pieces</label>
                   <div class="col-sm-10">
                     <input formControlName="pieces" type="number" class="form-control" id="EditPieces">
                   </div>
@@ -1336,7 +1371,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="EdituserQuantity" class="col-sm-2 col-form-label">User Quantity*</label>
+                  <label for="EdituserQuantity" class="col-sm-2 col-form-label">User Quantity</label>
                   <div class="col-sm-10">
                     <input formControlName="userQuantity" type="number" class="form-control" id="EdituserQuantity">
                   </div>
@@ -1349,7 +1384,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="EditWeight" class="col-sm-2 col-form-label">Weight*</label>
+                  <label for="EditWeight" class="col-sm-2 col-form-label">Weight</label>
                   <div class="col-sm-10">
                     <input formControlName="weight" type="number" class="form-control" id="EditWeight">
                   </div>
@@ -1359,7 +1394,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="EditTonnage" class="col-sm-2 col-form-label">Tonnage*</label>
+                  <label for="EditTonnage" class="col-sm-2 col-form-label">Tonnage</label>
                   <div class="col-sm-10">
                     <input formControlName="tonnage" type="number" class="form-control" id="EditTonnage">
                   </div>
@@ -1369,7 +1404,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3 row">
-                  <label for="EditGrWeight" class="col-sm-2 col-form-label">Gr. Weight*</label>
+                  <label for="EditGrWeight" class="col-sm-2 col-form-label">Gr. Weight</label>
                   <div class="col-sm-10">
                     <input formControlName="grWeight" type="number" class="form-control" id="EditGrWeight">
                   </div>
@@ -1381,7 +1416,7 @@
         <div class="row">
           <div class="col">
             <div class="mb-3 row">
-              <label for="EditPalletes" class="col-sm-2 col-form-label">Palletes*</label>
+              <label for="EditPalletes" class="col-sm-2 col-form-label">Palletes</label>
               <div class="col-sm-10">
                 <input formControlName="palletes" type="number" class="form-control" id="EditPalletes">
               </div>
@@ -1389,32 +1424,24 @@
           </div>
           <div class="col">
             <div class="mb-3 row">
-              <label for="EditFrClass" class="col-sm-2 col-form-label">Fr. Class*</label>
+              <label for="EditFrClass" class="col-sm-2 col-form-label">Fr. Class</label>
               <div class="col-sm-10">
                 <input formControlName="frClass" type="number" class="form-control" id="EditFrClass">
               </div>
             </div>
           </div>
         </div>
+        <!-- <hr> -->
         <div class="row">
           <div class="col">
             <div class="mb-3 row">
-              <label for="EditloadNotes" class="col-sm-12 col-form-label">Notes*</label>
+              <label for="EditloadNotes" class="col-sm-12 col-form-label">Notes</label>
               <div class="col-sm-12">
                 <textarea formControlName="notes" type="text" class="form-control" id="EditloadNotes"></textarea>
               </div>
             </div>
           </div>
           <div class="col">
-            <div class="mb-3 row">
-              <label for="editGood" class="col-sm-12 col-form-label">Goods*</label>
-              <div class="col-sm-12">
-                <select formControlName="good" id="editGood" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                  <option selected value="">Select Good</option>
-                  <option *ngFor="let good of goods" value="{{good?.id}}" class="text-capitalize">{{good?.name}}</option>
-                </select>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1488,7 +1515,7 @@
         <div class="row">
           <div class="col">
             <div class="mb-3 row">
-              <label for="chargesNotes" class="col-sm-12 col-form-label">Notes*</label>
+              <label for="chargesNotes" class="col-sm-12 col-form-label">Notes</label>
               <div class="col-sm-12">
                 <textarea formControlName="notes" type="text" class="form-control" id="chargesNotes"></textarea>
               </div>
@@ -1596,7 +1623,7 @@
         <div class="row">
           <div class="col">
             <div class="mb-3 row">
-              <label for="EditchargesNotes" class="col-sm-12 col-form-label">Notes*</label>
+              <label for="EditchargesNotes" class="col-sm-12 col-form-label">Notes</label>
               <div class="col-sm-12">
                 <textarea formControlName="notes" type="text" class="form-control" id="EditchargesNotes"></textarea>
               </div>

@@ -18,6 +18,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatTabsModule} from '@angular/material/tabs';
 import {TenderedComponent} from "./tendered/tendered.component";
 import {NgSelectModule} from '@ng-select/ng-select';
+import { InvitedComponent } from './invited/invited.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
     PendingComponent,
     AssignedComponent,
     TenderedComponent,
+    InvitedComponent,
     ActiveComponent,
     EnrouteComponent,
     CompletedComponent,

@@ -71,10 +71,10 @@ export class CommonComponent {
     this.createFormGroup = this.fb.group(
       {
         customer: ['',Validators.compose([Validators.required])],
-        proCode: ['',Validators.compose([Validators.required])],
-        poHash: ['',Validators.compose([Validators.required])],
-        shipperRef: ['',Validators.compose([Validators.required])],
-        bolHash: ['',Validators.compose([Validators.required])],
+        proCode: ['',Validators.compose([])],
+        poHash: ['',Validators.compose([])],
+        shipperRef: ['',Validators.compose([])],
+        bolHash: ['',Validators.compose([])],
         origin: ['',Validators.compose([])],
         destination: ['',Validators.compose([])],
       }

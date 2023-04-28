@@ -242,12 +242,12 @@ export class DetailComponent implements OnInit {
     this.editLoadFormGroup = this.fb.group(
       {
         customer: ['',Validators.compose([Validators.required])],
-        proCode: ['',Validators.compose([Validators.required])],
-        poHash: ['',Validators.compose([Validators.required])],
-        shipperRef: ['',Validators.compose([Validators.required])],
-        bolHash: ['',Validators.compose([Validators.required])],
-        origin: ['',Validators.compose([])],
-        destination: ['',Validators.compose([])],
+        proCode: ['',Validators.compose([])],
+        poHash: ['',Validators.compose([])],
+        shipperRef: ['',Validators.compose([])],
+        bolHash: ['',Validators.compose([])],
+        origin: ['',Validators.compose([Validators.required])],
+        destination: ['',Validators.compose([Validators.required])],
         notes: ['',Validators.compose([])],
       }
     );
@@ -272,17 +272,18 @@ export class DetailComponent implements OnInit {
         make: ['',Validators.compose([Validators.required])],
         model: ['',Validators.compose([Validators.required])],
         year: ['',Validators.compose([Validators.required])],
-        value: ['',Validators.compose([Validators.required])],
-        quantity: ['',Validators.compose([Validators.required])],
-        pieces: ['',Validators.compose([Validators.required])],
-        userQuantity: ['',Validators.compose([Validators.required])],
-        weight: ['',Validators.compose([Validators.required])],
-        tonnage: ['',Validators.compose([Validators.required])],
-        grWeight: ['',Validators.compose([Validators.required])],
-        palletes: ['',Validators.compose([Validators.required])],
-        frClass: ['',Validators.compose([Validators.required])],
-        notes: ['',Validators.compose([Validators.required])],
+        value: ['',Validators.compose([])],
+        quantity: ['',Validators.compose([])],
+        pieces: ['',Validators.compose([])],
+        userQuantity: ['',Validators.compose([])],
+        weight: ['',Validators.compose([])],
+        tonnage: ['',Validators.compose([])],
+        grWeight: ['',Validators.compose([])],
+        palletes: ['',Validators.compose([])],
+        frClass: ['',Validators.compose([])],
+        notes: ['',Validators.compose([])],
         good: ['',Validators.compose([Validators.required])],
+        vin: ['',Validators.compose([])],
       }
     );
     this.editGoodsFormGroup = this.fb.group(
@@ -291,23 +292,24 @@ export class DetailComponent implements OnInit {
         make: ['',Validators.compose([Validators.required])],
         model: ['',Validators.compose([Validators.required])],
         year: ['',Validators.compose([Validators.required])],
-        value: ['',Validators.compose([Validators.required])],
-        quantity: ['',Validators.compose([Validators.required])],
-        pieces: ['',Validators.compose([Validators.required])],
-        userQuantity: ['',Validators.compose([Validators.required])],
-        weight: ['',Validators.compose([Validators.required])],
-        tonnage: ['',Validators.compose([Validators.required])],
-        grWeight: ['',Validators.compose([Validators.required])],
-        palletes: ['',Validators.compose([Validators.required])],
-        frClass: ['',Validators.compose([Validators.required])],
-        notes: ['',Validators.compose([Validators.required])],
+        value: ['',Validators.compose([])],
+        quantity: ['',Validators.compose([])],
+        pieces: ['',Validators.compose([])],
+        userQuantity: ['',Validators.compose([])],
+        weight: ['',Validators.compose([])],
+        tonnage: ['',Validators.compose([])],
+        grWeight: ['',Validators.compose([])],
+        palletes: ['',Validators.compose([])],
+        frClass: ['',Validators.compose([])],
+        notes: ['',Validators.compose([])],
         good: ['',Validators.compose([Validators.required])],
+        vin: ['',Validators.compose([])],
       }
     );
     this.createChargesFormGroup = this.fb.group(
       {
         type: ['',Validators.compose([Validators.required])],
-        notes: ['',Validators.compose([Validators.required])],
+        notes: ['',Validators.compose([])],
         rate: ['',Validators.compose([Validators.required])],
         quantity: ['',Validators.compose([Validators.required])],
         payableToDriver: [false,Validators.compose([])],
@@ -323,7 +325,7 @@ export class DetailComponent implements OnInit {
       {
         chargesId: ['',Validators.compose([Validators.required])],
         type: ['',Validators.compose([Validators.required])],
-        notes: ['',Validators.compose([Validators.required])],
+        notes: ['',Validators.compose([])],
         rate: ['',Validators.compose([Validators.required])],
         quantity: ['',Validators.compose([Validators.required])],
         payableToDriver: [false,Validators.compose([])],
@@ -428,6 +430,7 @@ export class DetailComponent implements OnInit {
         frClass: this.createGoodsFormGroup.controls.frClass.value,
         notes: this.createGoodsFormGroup.controls.notes.value,
         good: this.createGoodsFormGroup.controls.good.value,
+        vin: this.createGoodsFormGroup.controls.vin.value,
       });
       if(allGoods.length > 0){
         load = {
@@ -551,6 +554,7 @@ export class DetailComponent implements OnInit {
     this.load.goods[goodsIndex].frClass = this.editGoodsFormGroup.controls.frClass.value
     this.load.goods[goodsIndex].notes = this.editGoodsFormGroup.controls.notes.value
     this.load.goods[goodsIndex].good = this.editGoodsFormGroup.controls.good.value
+    this.load.goods[goodsIndex].vin = this.editGoodsFormGroup.controls.vin.value
     this.update({updateGoods: true});
   }
 
@@ -620,6 +624,7 @@ export class DetailComponent implements OnInit {
       palletes: goods?.palletes,
       frClass: goods?.frClass,
       notes: goods?.notes,
+      vin: goods?.vin,
       good: goods?.good?.id,
     });
   }
