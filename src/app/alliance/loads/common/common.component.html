@@ -97,7 +97,7 @@
           <td>
             <div class="d-flex align-items-center">
               <div class="d-flex justify-content-start flex-column">
-                <span class="badge badge-light-success text-uppercase">{{(load?.status === 'assigned' ? 'invited' : ((load?.status === 'active') ? 'assigned' : load?.status))}}</span>
+                <span class="badge badge-light-success text-uppercase">{{helpersService.clientStatus(load?.status)}}</span>
               </div>
               <div *ngIf="load?.status === 'tender'" class="d-flex justify-content-start flex-column">
                 <ng-container>&nbsp;&nbsp;</ng-container>

@@ -14,6 +14,7 @@ import {TitleCasePipe} from "@angular/common";
 import {GoodsService} from "../../configurations/goods/goods.service";
 import {ChargesService} from "../../configurations/charges/charges.service";
 import {ToastrService} from 'ngx-toastr';
+import {HelpersService} from '../../../../helpers.service';
 
 const MAX_LIMIT = `${environment.maxLimit}`;
 
@@ -83,6 +84,7 @@ export class DetailComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private toaster: ToastrService,
+    public helpersService: HelpersService
   ){
     this.modalOptions = {
       backdrop:'static',

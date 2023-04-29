@@ -10,11 +10,13 @@ import Swal from "sweetalert2";
 import {TitleCasePipe} from '@angular/common';
 import {TypesService} from "../../types/services/types.service";
 import * as _ from "underscore";
+import {HelpersService} from '../../../../helpers.service';
 
 @Component({
   selector: 'app-loads-common',
   templateUrl: './common.component.html',
-  styleUrls: ['./common.component.scss']
+  styleUrls: ['./common.component.scss'],
+  // providers: [ HelpersService ]
 })
 export class CommonComponent {
 
@@ -46,6 +48,7 @@ export class CommonComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private titleCasePipe: TitleCasePipe,
+    public helpersService: HelpersService
   ){
     this.modalOptions = {
       backdrop:'static',
