@@ -2,10 +2,10 @@
   <!-- begin::Header -->
   <div class="card-header border-0 pt-5">
     <h3 class="card-title align-items-start flex-column">
-      <span class="card-label fw-bolder fs-3 mb-1">Import Users</span>
+      <span class="card-label fw-bolder fs-3 mb-1">Import Drivers</span>
     </h3>
     <div class="card-toolbar">
-      <a href="./assets/alliance/download-import-samples/users-import-sample.csv" class="btn btn-sm btn-light-primary a-svg-hover-fill-color">
+      <a [href]="'./assets/trucktransport/download-import-samples/driver-import-sample.csv'" class="btn btn-sm btn-light-primary a-svg-hover-fill-color">
         <span class="svg-icon svg-icon-primary svg-icon-3">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="17px" viewBox="0 0 24 24" version="1.1">
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -40,47 +40,85 @@
   <div class="card-body py-3">
     <!-- begin::Table container -->
     <div class="table-responsive">
-      <!--<pre>{{type | json}}</pre>-->
-      <!--<pre>{{users[0] | json}}</pre>-->
       <!-- begin::Table -->
       <table class="table align-middle gs-0 gy-4 table-striped">
         <!-- begin::Table head -->
         <thead>
         <tr class="fw-bolder text-muted bg-light">
-          <th class="ps-4 min-w-300px">ROLE</th>
-          <th class="min-w-300px">ACTIVE</th>
-          <!--<th class="min-w-200px">GENDER</th>-->
-          <th class="min-w-200px">NAME</th>
-          <th class="min-w-200px">EMAIL</th>
-          <!--<th class="min-w-200px">PASSWORD</th>-->
+          <th class="min-w-200px">Email</th>
+          <th class="ps-4 min-w-300px">Code</th>
+          <th class="min-w-300px">Active</th>
+          <th class="min-w-200px">First Name</th>
+          <th class="min-w-200px">Last Name</th>
+          <th class="min-w-200px">Gender</th>
+          <th class="min-w-200px">Address</th>
+          <th class="min-w-200px">Zip</th>
+          <th class="min-w-200px">State</th>
+          <th class="min-w-200px">City</th>
+          <th class="min-w-200px">Country</th>
+          <th class="min-w-200px">Phone</th>
+          <th class="min-w-200px">Mobile</th>
+          <th class="min-w-200px">SSN</th>
+          <th class="min-w-200px">Tax Id</th>
+          <th class="min-w-200px">External ID</th>
         </tr>
         </thead>
         <!-- end::Table head -->
         <!-- begin::Table body -->
         <tbody>
-          <tr *ngFor="let user of records"  [ngClass]="[emailsNotUnique.includes(user.email) ? 'red-error' : '']">
-            <td class="text-capitalize">
-                {{user.role}}
-            </td>
-            <td>
-              <span *ngIf="user.active;else inactiveBadge" class="custom badge badge-light-success">Active</span>
-              <ng-template #inactiveBadge>
-                <span class="custom badge badge-light-danger">Inactive</span>
-              </ng-template>
-            </td>
-<!--            <td  class="text-uppercase">
-              {{user.gender}}
-            </td>-->
-            <td  class="text-uppercase">
-              {{user.name}}
-            </td>
-            <td  class="text-lowercase email">
-              {{user.email}}
-            </td>
-<!--            <td>-->
-<!--              {{user.password}}-->
-<!--            </td>-->
-          </tr>
+        <tr *ngFor="let driver of records">
+          <td  class="text-lowercase">
+            {{driver.email}}
+          </td>
+          <td  class="text-uppercase">
+            {{driver.code}}
+          </td>
+          <td>
+            <span *ngIf="driver.active;else inactiveBadge" class="custom badge badge-light-success">Active</span>
+            <ng-template #inactiveBadge>
+              <span class="custom badge badge-light-danger">Inactive</span>
+            </ng-template>
+          </td>
+          <td  class="text-capitalize">
+            {{driver.first_name}}
+          </td>
+          <td  class="text-capitalize">
+            {{driver.last_name}}
+          </td>
+          <td  class="text-uppercase email">
+            {{driver.gender}}
+          </td>
+          <td  class="text-capitalize email">
+            {{driver.address}}
+          </td>
+          <td  class="text-lowercase email">
+            {{driver.zip}}
+          </td>
+          <td  class="text-uppercase email">
+            {{driver.state}}
+          </td>
+          <td  class="text-capitalize email">
+            {{driver.city}}
+          </td>
+          <td  class="text-capitalize email">
+            {{driver.country}}
+          </td>
+          <td  class="text-lowercase email">
+            {{driver.phone}}
+          </td>
+          <td  class="text-lowercase email">
+            {{driver.mobile}}
+          </td>
+          <td  class="text-uppercase email">
+            {{driver.ssn}}
+          </td>
+          <td  class="text-uppercase email">
+            {{driver.tax_id}}
+          </td>
+          <td  class="text-uppercase email">
+            {{driver.external_id}}
+          </td>
+        </tr>
         </tbody>
         <!-- end::Table body -->
       </table>
@@ -88,13 +126,13 @@
     </div>
     <div class="row">
       <div class="col">
-        <div class="alert alert-danger" role="alert" *ngIf="importUserError !== undefined && importUserError !== ''">
-          {{importUserError}}
-        </div>
-        <div class="alert alert-success" role="alert" *ngIf="importUserSuccess !== undefined && importUserSuccess !== ''">
-          {{importUserSuccess}}
-        </div>
-        <button *ngIf="importUserSuccess !== undefined && importUserSuccess !== ''" class="btn btn-primary import-now" (click)="import()">Import Now</button>
+        <!--        <div class="alert alert-danger" role="alert" *ngIf="importUserError !== undefined && importUserError !== ''">-->
+        <!--          {{importUserError}}-->
+        <!--        </div>-->
+        <!--        <div class="alert alert-success" role="alert" *ngIf="importUserSuccess !== undefined && importUserSuccess !== ''">-->
+        <!--          {{importUserSuccess}}-->
+        <!--        </div>-->
+        <button *ngIf="records !== undefined && records.length > 0" class="btn btn-primary import-now" (click)="import()">Import Now</button>
       </div>
     </div>
     <!-- end::Table container -->

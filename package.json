@@ -1,5 +1,5 @@
 {
-  "name": "alliancedriveaway.com-admin",
+  "name": "trucktransport-admin",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
@@ -29,7 +29,7 @@
     "@popperjs/core": "2.11.2",
     "@types/file-saver": "^2.0.5",
     "@types/underscore": "^1.11.4",
-    "angular-imask": "^6.4.2",
+    "angular-imask": "6.4.2",
     "angular-in-memory-web-api": "0.13.0",
     "animate.css": "4.1.1",
     "apexcharts": "^3.27.2",
